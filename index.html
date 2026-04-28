@@ -470,23 +470,11 @@ function showApp(){
 }
 
 // ── API KEY ──────────────────────────────────────────────────────────────
-async function verifyKey(){
+function verifyKey(){
   const k = document.getElementById('apiKeyInput').value.trim();
   const errEl = document.getElementById('apiKeyError');
-  const btn = document.getElementById('saveKeyBtn');
-  if(!k.startsWith('sk-ant-')){ errEl.textContent='Key should start with sk-ant-'; return; }
-  btn.innerHTML='<span class="spinner"></span>Verifying…';
-  btn.disabled=true; errEl.textContent='';
-  try{
-    const r = await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','x-api-key':k,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
-      body:JSON.stringify({model:'claude-haiku-20240307',max_tokens:10,messages:[{role:'user',content:'Hi'}]})
-    });
-    if(r.ok){ apiKey=k; save('pratik_apikey',k); showApp(); }
-    else { errEl.textContent='Invalid key — double check it.'; }
-  } catch { errEl.textContent='Network error — check your internet.'; }
-  btn.innerHTML='Save &amp; Continue →'; btn.disabled=false;
+  if(!k.startsWith('sk-ant-')){ errEl.textContent='Key should start with sk-ant-…'; return; }
+  apiKey=k; save('pratik_apikey',k); showApp();
 }
 
 function changeKey(){
