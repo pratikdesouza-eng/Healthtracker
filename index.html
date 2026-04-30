@@ -11,190 +11,194 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 :root{
-  --bg:#F2F4F7;--white:#FFFFFF;--card:#FFFFFF;
+  --bg:#F2F4F7;--white:#FFFFFF;
   --border:#E8ECF0;--border2:#D0D7E0;
   --text:#1A1A2E;--sub:#6B7280;--dim:#9CA3AF;
   --accent:#00C48C;--accent-dk:#00A87A;--accent-bg:#E6FAF4;
   --red:#EF4444;--red-bg:#FEF2F2;
   --blue:#3B82F6;--blue-bg:#EFF6FF;
   --orange:#F59E0B;--orange-bg:#FFFBEB;
-  --purple:#8B5CF6;--purple-bg:#F5F3FF;
+  --purple:#8B5CF6;
+  --b-color:#3B82F6; --l-color:#00C48C; --d-color:#8B5CF6; --s-color:#F59E0B;
 }
 html,body{height:100%;background:var(--bg);font-family:'Inter',system-ui,sans-serif;color:var(--text);overflow-x:hidden;}
-::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:transparent;}::-webkit-scrollbar-thumb{background:#D0D7E0;border-radius:4px;}
+::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-thumb{background:#D0D7E0;border-radius:4px;}
 input,textarea,button,select{font-family:inherit;}
 input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;}
 button{cursor:pointer;}
 
 /* ── SETUP ── */
-#setup{display:none;min-height:100vh;background:var(--white);flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;text-align:center;}
+#setup{display:none;min-height:100vh;background:var(--white);flex-direction:column;align-items:center;justify-content:center;padding:32px 20px;text-align:center;}
 #setup.on{display:flex;}
 .setup-logo{width:64px;height:64px;background:var(--accent);border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 20px;}
-.setup-title{font-size:26px;font-weight:800;color:var(--text);margin-bottom:6px;}
-.setup-sub{font-size:14px;color:var(--sub);margin-bottom:36px;line-height:1.6;max-width:300px;}
-.setup-card{background:var(--bg);border:1px solid var(--border);border-radius:20px;padding:24px;width:100%;max-width:380px;margin-bottom:16px;text-align:left;}
-.setup-hint{font-size:12px;color:var(--dim);line-height:1.8;text-align:center;}
+.setup-title{font-size:26px;font-weight:800;margin-bottom:8px;}
+.setup-sub{font-size:13px;color:var(--sub);margin-bottom:28px;line-height:1.7;max-width:320px;}
+.setup-card{background:var(--bg);border:1px solid var(--border);border-radius:20px;padding:22px;width:100%;max-width:380px;margin-bottom:14px;text-align:left;}
+.setup-hint{font-size:11px;color:var(--dim);line-height:1.9;margin-top:6px;}
 
 /* ── APP ── */
 #app{display:none;}#app.on{display:block;}
 
 /* ── HEADER ── */
-#hdr{background:var(--white);border-bottom:1px solid var(--border);padding:12px 16px 0;position:sticky;top:0;z-index:100;box-shadow:0 1px 8px rgba(0,0,0,0.06);}
+#hdr{background:var(--white);border-bottom:1px solid var(--border);padding:12px 16px 0;position:sticky;top:0;z-index:100;box-shadow:0 1px 6px rgba(0,0,0,0.06);}
 #hdr-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
-.hdr-brand{font-size:18px;font-weight:800;color:var(--text);}
-.hdr-brand span{color:var(--accent);}
-.hdr-goal-box{background:var(--accent-bg);border:1px solid #B3EDD8;border-radius:12px;padding:6px 12px;text-align:center;}
-.hdr-days{font-size:20px;font-weight:800;color:var(--accent);line-height:1;}
-.hdr-days-lbl{font-size:9px;color:var(--accent-dk);font-weight:600;text-transform:uppercase;letter-spacing:1px;}
-.hdr-proj{font-size:9px;color:var(--dim);}
+.hdr-brand{font-size:18px;font-weight:800;}.hdr-brand span{color:var(--accent);}
+.goal-pill{background:var(--accent-bg);border:1px solid #B3EDD8;border-radius:12px;padding:6px 12px;text-align:center;}
+.goal-pill-days{font-size:20px;font-weight:800;color:var(--accent);line-height:1;}
+.goal-pill-lbl{font-size:9px;color:var(--accent-dk);font-weight:700;text-transform:uppercase;letter-spacing:1px;}
+.goal-pill-proj{font-size:9px;color:var(--dim);}
 #tabs{display:flex;margin:0 -16px;}
-.tab{flex:1;background:none;border:none;border-bottom:2.5px solid transparent;color:var(--dim);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:10px 2px;transition:all 0.2s;}
+.tab{flex:1;background:none;border:none;border-bottom:2.5px solid transparent;color:var(--dim);font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:10px 2px;transition:all .2s;}
 .tab.on{border-bottom-color:var(--accent);color:var(--accent);}
 
-/* ── CONTENT ── */
-#content{padding:16px 14px 80px;}
-.page{display:none;}.page.on{display:block;animation:fu 0.3s ease;}
-@keyframes fu{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+/* ── DATE BAR — shared across all pages ── */
+#date-bar{background:var(--white);border-bottom:1px solid var(--border);padding:10px 14px;display:flex;align-items:center;gap:10px;}
+.date-arr{background:var(--bg);border:1px solid var(--border);border-radius:8px;width:34px;height:34px;font-size:20px;display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;border:1px solid var(--border);}
+.date-arr:active{background:var(--border);}
+.date-lbl-wrap{flex:1;text-align:center;cursor:pointer;}
+.date-lbl-main{font-size:14px;font-weight:700;}
+.date-lbl-sub{font-size:11px;color:var(--dim);}
+#date-jump{background:var(--bg);border:1.5px solid var(--accent);border-radius:8px;padding:5px 8px;font-size:13px;color:var(--text);outline:none;cursor:pointer;}
 
-/* ── SECTION HEADS ── */
+/* ── CONTENT ── */
+#content{padding:14px 14px 80px;}
+.page{display:none;}.page.on{display:block;animation:fu .3s ease;}
+@keyframes fu{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 .sec-h{font-size:20px;font-weight:800;margin-bottom:4px;}
 .sec-s{font-size:13px;color:var(--sub);margin-bottom:18px;line-height:1.5;}
 
 /* ── CARDS ── */
-.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,0.04);}
+.card{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:18px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,0.04);}
 .card-green{background:var(--accent-bg);border:1px solid #B3EDD8;border-radius:16px;padding:18px;margin-bottom:14px;}
-.card-red{background:var(--red-bg);border:1px solid #FECACA;border-radius:16px;padding:18px;margin-bottom:14px;}
 .lbl{font-size:10px;color:var(--dim);letter-spacing:1.5px;text-transform:uppercase;font-weight:700;display:block;margin-bottom:10px;}
 
 /* ── INPUTS ── */
-.inp{width:100%;background:var(--bg);border:1.5px solid var(--border);border-radius:12px;padding:12px 14px;color:var(--text);font-size:15px;outline:none;display:block;transition:border-color 0.2s;}
+.inp{width:100%;background:var(--bg);border:1.5px solid var(--border);border-radius:12px;padding:12px 14px;color:var(--text);font-size:15px;outline:none;display:block;transition:border-color .2s;}
 .inp:focus{border-color:var(--accent);background:var(--white);}
 .inp-xl{font-size:28px;font-weight:700;padding:14px;}
-textarea.inp{min-height:80px;resize:none;line-height:1.6;}
+textarea.inp{min-height:78px;resize:none;line-height:1.6;}
 input[type=date].inp{color-scheme:light;}
-.inp-row{display:flex;gap:10px;margin-bottom:14px;align-items:center;}
-.inp-row .inp{flex:1;}
 
 /* ── BUTTONS ── */
-.btn{width:100%;padding:14px;border:none;border-radius:12px;font-weight:700;font-size:15px;transition:all 0.2s;}
+.btn{width:100%;padding:14px;border:none;border-radius:12px;font-weight:700;font-size:15px;transition:all .2s;}
 .btn-accent{background:var(--accent);color:#fff;}
 .btn-accent:active{background:var(--accent-dk);}
 .btn-outline{background:var(--white);color:var(--accent);border:2px solid var(--accent);}
 .btn-gray{background:var(--bg);color:var(--sub);border:1.5px solid var(--border);}
-.btn-red{background:var(--red);color:#fff;}
-.btn-sm{padding:7px 14px;font-size:11px;border-radius:8px;border:none;font-weight:700;cursor:pointer;letter-spacing:0.5px;}
+.btn-sm{padding:7px 14px;font-size:11px;border-radius:8px;border:none;font-weight:700;cursor:pointer;}
 .btn-sm-accent{background:var(--accent);color:#fff;}
 .btn-sm-gray{background:var(--bg);color:var(--sub);border:1.5px solid var(--border);}
 
+/* ── MEAL TYPE TABS ── */
+.meal-type-row{display:flex;gap:8px;margin-bottom:16px;overflow-x:auto;padding-bottom:2px;}
+.mt-btn{flex-shrink:0;padding:8px 16px;border-radius:20px;border:1.5px solid var(--border);background:var(--white);font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;color:var(--sub);}
+.mt-btn.on-b{background:#EFF6FF;border-color:var(--b-color);color:var(--b-color);}
+.mt-btn.on-l{background:var(--accent-bg);border-color:var(--l-color);color:var(--l-color);}
+.mt-btn.on-d{background:var(--purple-bg,#F5F3FF);border-color:var(--d-color);color:var(--d-color);}
+.mt-btn.on-s{background:var(--orange-bg);border-color:var(--s-color);color:var(--s-color);}
+
 /* ── RING ── */
-.ring-wrap{display:flex;align-items:center;gap:18px;}
+.ring-wrap{display:flex;align-items:center;gap:16px;}
 .ring-rel{position:relative;width:120px;height:120px;flex-shrink:0;}
 .ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-.ring-num{font-size:28px;font-weight:800;line-height:1;color:var(--text);}
-.ring-sub{font-size:9px;color:var(--dim);margin-top:2px;font-weight:600;letter-spacing:1px;text-transform:uppercase;}
+.ring-num{font-size:28px;font-weight:800;line-height:1;}
+.ring-sub-lbl{font-size:9px;color:var(--dim);margin-top:2px;font-weight:600;letter-spacing:1px;text-transform:uppercase;}
 
 /* ── MACROS ── */
 .mac{margin-bottom:14px;}
 .mac-top{display:flex;justify-content:space-between;margin-bottom:6px;font-size:13px;align-items:center;}
 .mac-bg{height:8px;background:var(--bg);border-radius:4px;overflow:hidden;border:1px solid var(--border);}
-.mac-bar{height:100%;border-radius:4px;transition:width 0.5s;}
+.mac-bar{height:100%;border-radius:4px;transition:width .5s;}
 
-/* ── WATCH CELLS ── */
+/* ── WATCH ── */
 .wgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 .wcell{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:13px;}
 .wcell-ico{font-size:20px;margin-bottom:4px;}
-.wcell-val{font-size:20px;font-weight:700;color:var(--text);}
+.wcell-val{font-size:20px;font-weight:700;}
 .wcell-note{font-size:10px;color:var(--dim);margin-top:2px;font-weight:500;}
 .winp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
 .winp-lbl{font-size:11px;color:var(--sub);margin-bottom:5px;font-weight:600;}
 
+/* ── MEAL TYPE GROUPS ── */
+.meal-group{margin-bottom:14px;}
+.meal-group-hdr{display:flex;align-items:center;gap:8px;margin-bottom:8px;padding:8px 12px;border-radius:10px;}
+.meal-group-hdr.b{background:#EFF6FF;}.meal-group-hdr.l{background:var(--accent-bg);}.meal-group-hdr.d{background:#F5F3FF;}.meal-group-hdr.s{background:var(--orange-bg);}
+.meal-group-ico{font-size:18px;}
+.meal-group-name{font-size:13px;font-weight:700;}
+.meal-group-cal{font-size:12px;font-weight:700;margin-left:auto;}
+.meal-group-cal.b{color:var(--b-color);}.meal-group-cal.l{color:var(--l-color);}.meal-group-cal.d{color:var(--d-color);}.meal-group-cal.s{color:var(--s-color);}
+
+/* ── MEAL ITEMS ── */
+.meal-item{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);align-items:flex-start;}
+.meal-item:last-child{border-bottom:none;}
+.meal-dot{width:7px;height:7px;background:var(--accent);border-radius:50%;flex-shrink:0;margin-top:5px;}
+.meal-info{flex:1;}
+.meal-name{font-size:13px;font-weight:600;margin-bottom:2px;}
+.meal-meta{font-size:11px;color:var(--dim);}
+.meal-cal-box{text-align:right;flex-shrink:0;}
+.meal-cal{font-size:15px;font-weight:700;}
+.meal-kcal-lbl{font-size:9px;color:var(--dim);font-weight:600;}
+.meal-del{background:none;border:none;color:var(--dim);font-size:18px;cursor:pointer;line-height:1;display:block;}
+
 /* ── FOOD SEARCH ── */
-#food-search-wrap{position:relative;margin-bottom:8px;}
-#food-results{position:absolute;top:100%;left:0;right:0;background:var(--white);border:1.5px solid var(--border);border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,0.12);z-index:200;max-height:320px;overflow-y:auto;display:none;}
-.food-item{padding:13px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background 0.15s;}
+#food-search-wrap{position:relative;}
+#food-results{position:absolute;top:100%;left:0;right:0;background:var(--white);border:1.5px solid var(--border);border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,0.1);z-index:200;max-height:300px;overflow-y:auto;display:none;margin-top:4px;}
+.food-item{padding:12px 14px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s;}
 .food-item:last-child{border-bottom:none;}
 .food-item:hover,.food-item:active{background:var(--accent-bg);}
-.food-item-name{font-size:14px;font-weight:600;color:var(--text);margin-bottom:2px;}
-.food-item-meta{font-size:12px;color:var(--sub);}
-.food-item-cal{font-size:14px;font-weight:700;color:var(--accent);}
-.food-no-result{padding:16px;text-align:center;font-size:13px;color:var(--dim);}
+.food-name{font-size:14px;font-weight:600;margin-bottom:2px;}
+.food-meta{font-size:11px;color:var(--sub);}
+.food-cal{font-size:14px;font-weight:700;color:var(--accent);white-space:nowrap;}
+.food-no-res{padding:16px;text-align:center;font-size:13px;color:var(--dim);}
 
 /* ── SERVING MODAL ── */
 #serving-modal{display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,0.4);align-items:flex-end;justify-content:center;}
 #serving-modal.on{display:flex;}
-#serving-box{background:var(--white);border-radius:24px 24px 0 0;padding:24px;width:100%;max-width:480px;}
-.modal-title{font-size:18px;font-weight:800;margin-bottom:4px;}
-.modal-sub{font-size:12px;color:var(--sub);margin-bottom:18px;}
-.serving-macros{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:18px;}
-.sm-cell{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px;text-align:center;}
-.sm-val{font-size:18px;font-weight:700;}
-.sm-lbl{font-size:9px;color:var(--dim);margin-top:2px;text-transform:uppercase;letter-spacing:1px;font-weight:600;}
-
-/* ── MEAL LIST ── */
-.meal-item{display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--border);align-items:flex-start;}
-.meal-item:last-child{border-bottom:none;}
-.meal-dot{width:8px;height:8px;background:var(--accent);border-radius:50%;flex-shrink:0;margin-top:5px;}
-.meal-info{flex:1;}
-.meal-name{font-size:14px;font-weight:600;color:var(--text);margin-bottom:2px;}
-.meal-meta{font-size:11px;color:var(--dim);}
-.meal-date-tag{font-size:10px;color:var(--accent);font-weight:600;margin-top:2px;}
-.meal-cal-box{text-align:right;flex-shrink:0;}
-.meal-cal{font-size:16px;font-weight:700;color:var(--text);}
-.meal-kcal-lbl{font-size:9px;color:var(--dim);font-weight:600;}
-.meal-del{background:none;border:none;color:var(--dim);font-size:18px;cursor:pointer;padding:2px 4px;display:block;margin-top:4px;}
+#srv-box{background:var(--white);border-radius:24px 24px 0 0;padding:24px;width:100%;max-width:480px;padding-bottom:calc(24px + env(safe-area-inset-bottom));}
+.srv-macros{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:18px;}
+.srv-cell{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px;text-align:center;}
+.srv-val{font-size:18px;font-weight:700;}
+.srv-lbl{font-size:9px;color:var(--dim);margin-top:2px;text-transform:uppercase;letter-spacing:1px;font-weight:600;}
 
 /* ── PROGRESS ── */
 .prog-hdr{display:flex;justify-content:space-between;margin-bottom:16px;}
 .prog-big{font-size:36px;font-weight:800;line-height:1;}
 .prog-lbl{font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:3px;}
 .prog-bg{height:10px;background:var(--bg);border:1px solid var(--border);border-radius:5px;overflow:hidden;margin-bottom:8px;}
-.prog-bar{height:100%;background:linear-gradient(90deg,var(--accent),#7EDFC4);border-radius:5px;transition:width 0.8s;}
+.prog-bar{height:100%;background:linear-gradient(90deg,var(--accent),#7EDFC4);border-radius:5px;transition:width .8s;}
 .stat-row{display:grid;grid-template-columns:1.4fr 1fr 1fr;border-top:1px solid var(--border);padding:11px 0;font-size:13px;}
 .wk-stat{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;}
 .wk-val{font-size:24px;font-weight:800;}
 .wk-lbl{font-size:10px;color:var(--dim);margin-top:3px;font-weight:600;text-transform:uppercase;letter-spacing:1px;}
 
 /* ── DAILY LOG ── */
-.day-log-row{padding:11px 0;border-bottom:1px solid var(--border);}
-.day-log-row:last-child{border-bottom:none;}
+.dlr{padding:11px 0;border-bottom:1px solid var(--border);}
+.dlr:last-child{border-bottom:none;}
 .dlr-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
-.dlr-cal{font-size:17px;font-weight:700;color:var(--text);}
 .dlr-bar-bg{height:6px;background:var(--bg);border-radius:3px;overflow:hidden;}
 .dlr-bar{height:100%;border-radius:3px;}
 
 /* ── WEIGH HIST ── */
 .wh-row{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid var(--border);}
 .wh-row:last-child{border-bottom:none;}
-.wh-date{font-size:14px;font-weight:600;}
-.wh-bf{font-size:11px;color:var(--dim);margin-top:2px;}
-.wh-kg{font-size:24px;font-weight:800;color:var(--text);}
-.wh-diff{font-size:12px;font-weight:700;text-align:right;margin-top:2px;}
 
 /* ── ALERTS ── */
 .alert-y{padding:10px 13px;background:var(--orange-bg);border:1px solid #FDE68A;border-radius:10px;font-size:12px;color:#92400E;line-height:1.6;margin-top:10px;}
 .alert-g{padding:10px 13px;background:var(--accent-bg);border:1px solid #B3EDD8;border-radius:10px;font-size:12px;color:var(--accent-dk);line-height:1.6;margin-top:10px;}
-.alert-r{font-size:12px;color:var(--red);margin-top:10px;padding:10px 13px;background:var(--red-bg);border:1px solid #FECACA;border-radius:10px;line-height:1.6;}
+.alert-r{font-size:12px;color:var(--red);padding:10px 13px;background:var(--red-bg);border:1px solid #FECACA;border-radius:10px;line-height:1.6;margin-top:10px;}
+
+/* ── EMPTY ── */
+.empty{text-align:center;padding:28px 0;color:var(--dim);font-size:13px;line-height:1.7;}
+.empty-ico{font-size:32px;margin-bottom:8px;}
+
+/* ── MISC ── */
+.goal-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px;}
+.goal-row:last-child{border-bottom:none;}
 .badge{display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;margin-left:6px;vertical-align:middle;}
 .badge-g{background:var(--accent-bg);color:var(--accent-dk);}
 .badge-r{background:var(--red-bg);color:var(--red);}
-.badge-o{background:var(--orange-bg);color:#92400E;}
-
-/* ── EMPTY ── */
-.empty{text-align:center;padding:32px 0;color:var(--dim);font-size:13px;}
-.empty-ico{font-size:36px;margin-bottom:10px;}
-
-/* ── GOAL ROW ── */
-.goal-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px;}
-.goal-row:last-child{border-bottom:none;}
-
-/* ── SPINNER ── */
 @keyframes spin{to{transform:rotate(360deg)}}
-.spinner{display:inline-block;width:14px;height:14px;border:2px solid #E8ECF0;border-top-color:var(--accent);border-radius:50%;animation:spin 0.7s linear infinite;vertical-align:middle;margin-right:8px;}
-
-/* ── DATE PICKER ROW ── */
-.date-pick-row{display:flex;gap:8px;align-items:center;margin-bottom:14px;}
-.date-pick-row .inp{flex:1;padding:10px 12px;font-size:14px;}
-.date-pick-row button{flex-shrink:0;}
+.spinner{display:inline-block;width:14px;height:14px;border:2px solid #E8ECF0;border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:8px;}
 </style>
 </head>
 <body>
@@ -203,28 +207,39 @@ input[type=date].inp{color-scheme:light;}
 <div id="setup" class="on">
   <div class="setup-logo">🏋️</div>
   <div class="setup-title">Pratik Health Hub</div>
-  <div class="setup-sub">Your personal Indian food & fitness tracker. Enter your Anthropic API key to enable AI features (optional — food database works without it).</div>
+  <div class="setup-sub">Your personal Indian food &amp; fitness tracker.<br/>Add your free Gemini API key to enable AI meal analysis for any food.</div>
+
   <div class="setup-card">
-    <span class="lbl">Anthropic API Key (Optional)</span>
-    <input class="inp" type="password" id="apiKeyInput" placeholder="sk-ant-api03-… or leave blank" autocomplete="off"/>
-    <div id="apiErr" style="font-size:12px;color:var(--red);min-height:16px;margin:6px 0;"></div>
-    <button class="btn btn-accent" onclick="saveKey()" style="margin-top:4px">Get Started →</button>
+    <span class="lbl">Gemini API Key <span style="color:var(--accent);font-weight:500;text-transform:none;letter-spacing:0;">(Free - no credit card)</span></span>
+    <input class="inp" type="password" id="geminiKeyInput" placeholder="Paste your Gemini API key here" autocomplete="off" style="margin-bottom:10px;"/>
+    <div style="background:var(--accent-bg);border:1px solid #B3EDD8;border-radius:10px;padding:12px;margin-bottom:12px;font-size:12px;color:var(--accent-dk);line-height:1.9;">
+      <strong>How to get your free key (2 minutes):</strong><br/>
+      1. Go to <strong>aistudio.google.com</strong><br/>
+      2. Sign in with your Google account<br/>
+      3. Click <strong>Get API Key</strong> then Create API key<br/>
+      4. Copy and paste it above
+    </div>
+    <div id="apiErr" style="font-size:12px;color:var(--red);min-height:16px;margin-bottom:8px;"></div>
+    <button class="btn btn-accent" onclick="saveSetup()">Save &amp; Get Started</button>
+    <button class="btn btn-gray" onclick="skipKey()" style="margin-top:10px;">Skip - use food database only</button>
   </div>
-  <div class="setup-hint">Food database has 200+ Indian dishes — works offline.<br/>API key only needed for unlisted foods.</div>
+  <div class="setup-hint">Free tier: 1,500 requests/day. No billing needed.<br/>200+ Indian dishes work without any key.</div></div>
 </div>
 
 <!-- ══════ APP ══════ -->
 <div id="app">
+
+  <!-- Header -->
   <div id="hdr">
     <div id="hdr-top">
       <div>
         <div class="hdr-brand">Health<span>Hub</span></div>
-        <div id="hdr-date" style="font-size:11px;color:var(--dim);margin-top:1px;font-weight:500;"></div>
+        <div id="hdr-date-lbl" style="font-size:11px;color:var(--dim);margin-top:1px;font-weight:500;"></div>
       </div>
-      <div class="hdr-goal-box">
-        <div class="hdr-days-lbl">GOAL IN</div>
-        <div id="hdr-days" class="hdr-days">—</div>
-        <div id="hdr-proj" class="hdr-proj">—</div>
+      <div class="goal-pill">
+        <div class="goal-pill-lbl">GOAL IN</div>
+        <div id="hdr-days" class="goal-pill-days">—</div>
+        <div id="hdr-proj" class="goal-pill-proj">—</div>
       </div>
     </div>
     <div id="tabs">
@@ -236,21 +251,21 @@ input[type=date].inp{color-scheme:light;}
     </div>
   </div>
 
+  <!-- SHARED DATE BAR -->
+  <div id="date-bar">
+    <button class="date-arr" onclick="shiftDay(-1)">‹</button>
+    <div class="date-lbl-wrap" onclick="toggleDatePicker()">
+      <div id="db-main" class="date-lbl-main">Today</div>
+      <div id="db-sub" class="date-lbl-sub">Tap to jump to date</div>
+    </div>
+    <input type="date" id="date-jump" onchange="jumpToDate(this.value)" style="display:none;"/>
+    <button class="date-arr" onclick="shiftDay(1)">›</button>
+  </div>
+
   <div id="content">
 
-    <!-- ── TODAY ── -->
+    <!-- ══ TODAY ══ -->
     <div id="pg-today" class="page on">
-      <!-- Date selector -->
-      <div class="card" style="padding:12px 16px;">
-        <div style="display:flex;align-items:center;gap:10px;">
-          <button onclick="shiftDay(-1)" style="background:var(--bg);border:1px solid var(--border);border-radius:8px;width:34px;height:34px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;">‹</button>
-          <div style="flex:1;text-align:center;">
-            <div id="today-date-lbl" style="font-size:14px;font-weight:700;color:var(--text);"></div>
-            <div id="today-date-sub" style="font-size:11px;color:var(--dim);"></div>
-          </div>
-          <button onclick="shiftDay(1)" style="background:var(--bg);border:1px solid var(--border);border-radius:8px;width:34px;height:34px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;">›</button>
-        </div>
-      </div>
 
       <!-- Ring -->
       <div class="card">
@@ -260,29 +275,23 @@ input[type=date].inp{color-scheme:light;}
               <circle cx="60" cy="60" r="52" fill="none" stroke="#F2F4F7" stroke-width="10"/>
               <circle id="ring-arc" cx="60" cy="60" r="52" fill="none" stroke="var(--accent)"
                 stroke-width="10" stroke-linecap="round" stroke-dasharray="0 326.7"
-                transform="rotate(-90 60 60)" style="transition:stroke-dasharray 0.6s;"/>
+                transform="rotate(-90 60 60)" style="transition:stroke-dasharray .6s;"/>
             </svg>
             <div class="ring-center">
               <div id="ring-num" class="ring-num">0</div>
-              <div class="ring-sub">KCAL</div>
+              <div class="ring-sub-lbl">KCAL</div>
             </div>
           </div>
           <div style="flex:1;">
             <div style="display:flex;justify-content:space-between;margin-bottom:10px;">
-              <div style="text-align:center;">
-                <div style="font-size:11px;color:var(--dim);font-weight:600;margin-bottom:2px;">TARGET</div>
-                <div style="font-size:18px;font-weight:800;">1,650</div>
-              </div>
-              <div style="text-align:center;">
-                <div style="font-size:11px;color:var(--dim);font-weight:600;margin-bottom:2px;">REMAINING</div>
-                <div id="ring-rem" style="font-size:18px;font-weight:800;color:var(--accent);">1,650</div>
-              </div>
+              <div><div style="font-size:10px;color:var(--dim);font-weight:600;margin-bottom:2px;">TARGET</div><div style="font-size:18px;font-weight:800;">1,650</div><div style="font-size:9px;color:var(--dim);">kcal</div></div>
+              <div style="text-align:right;"><div style="font-size:10px;color:var(--dim);font-weight:600;margin-bottom:2px;">REMAINING</div><div id="ring-rem" style="font-size:18px;font-weight:800;color:var(--accent);">1,650</div><div style="font-size:9px;color:var(--dim);">kcal</div></div>
             </div>
-            <div id="def-box" style="padding:10px 13px;background:var(--accent-bg);border:1px solid #B3EDD8;border-radius:10px;">
-              <div style="font-size:9px;color:var(--dim);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:2px;">DEFICIT</div>
+            <div id="def-box" style="padding:9px 12px;background:var(--accent-bg);border:1px solid #B3EDD8;border-radius:10px;">
+              <div style="font-size:9px;color:var(--dim);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:1px;">DEFICIT</div>
               <div id="def-val" style="font-size:20px;font-weight:800;color:var(--accent);">— kcal</div>
             </div>
-            <div id="burned-row" style="display:none;margin-top:8px;font-size:11px;color:var(--sub);font-weight:500;"></div>
+            <div id="burned-row" style="display:none;margin-top:7px;font-size:11px;color:var(--sub);font-weight:500;"></div>
           </div>
         </div>
       </div>
@@ -290,19 +299,10 @@ input[type=date].inp{color-scheme:light;}
       <!-- Macros -->
       <div class="card">
         <span class="lbl">MACROS</span>
-        <div class="mac">
-          <div class="mac-top"><span style="font-weight:600;font-size:13px;">💪 Protein</span><span><span id="m-p" style="font-weight:700;">0g</span><span style="color:var(--dim);"> / 130g</span></span></div>
-          <div class="mac-bg"><div id="b-p" class="mac-bar" style="width:0%;background:var(--accent);"></div></div>
-        </div>
-        <div class="mac">
-          <div class="mac-top"><span style="font-weight:600;font-size:13px;">🌾 Carbs</span><span><span id="m-c" style="font-weight:700;">0g</span><span style="color:var(--dim);"> / 150g</span></span></div>
-          <div class="mac-bg"><div id="b-c" class="mac-bar" style="width:0%;background:var(--blue);"></div></div>
-        </div>
-        <div class="mac" style="margin-bottom:0;">
-          <div class="mac-top"><span style="font-weight:600;font-size:13px;">🥑 Fat</span><span><span id="m-f" style="font-weight:700;">0g</span><span style="color:var(--dim);"> / 55g</span></span></div>
-          <div class="mac-bg"><div id="b-f" class="mac-bar" style="width:0%;background:var(--purple);"></div></div>
-        </div>
-        <div id="prot-alert" class="alert-y" style="display:none;">⚠️ Protein is low — add eggs, paneer, curd or a protein shake today.</div>
+        <div class="mac"><div class="mac-top"><span style="font-weight:600;">💪 Protein</span><span><span id="m-p" style="font-weight:700;">0g</span><span style="color:var(--dim);"> / 130g</span></span></div><div class="mac-bg"><div id="b-p" class="mac-bar" style="width:0%;background:var(--accent);"></div></div></div>
+        <div class="mac"><div class="mac-top"><span style="font-weight:600;">🌾 Carbs</span><span><span id="m-c" style="font-weight:700;">0g</span><span style="color:var(--dim);"> / 150g</span></span></div><div class="mac-bg"><div id="b-c" class="mac-bar" style="width:0%;background:var(--blue);"></div></div></div>
+        <div class="mac" style="margin-bottom:0;"><div class="mac-top"><span style="font-weight:600;">🥑 Fat</span><span><span id="m-f" style="font-weight:700;">0g</span><span style="color:var(--dim);"> / 55g</span></span></div><div class="mac-bg"><div id="b-f" class="mac-bar" style="width:0%;background:var(--purple);"></div></div></div>
+        <div id="prot-alert" class="alert-y" style="display:none;">⚠️ Protein is low today — add eggs, paneer, curd or a protein shake.</div>
       </div>
 
       <!-- Apple Watch -->
@@ -312,44 +312,46 @@ input[type=date].inp{color-scheme:light;}
           <button id="watch-edit-btn" onclick="clearWatch()" style="display:none;background:none;border:none;color:var(--accent);font-size:12px;cursor:pointer;font-weight:700;">Edit</button>
         </div>
         <div id="watch-saved-view" style="display:none;" class="wgrid">
-          <div class="wcell"><div class="wcell-ico">👣</div><div id="wv-steps" class="wcell-val">—</div><div class="wcell-note">Goal: 8,000 steps</div></div>
-          <div class="wcell"><div class="wcell-ico">🔥</div><div id="wv-cal" class="wcell-val">—</div><div class="wcell-note">Active calories</div></div>
-          <div class="wcell"><div class="wcell-ico">🏋️</div><div id="wv-workout" class="wcell-val">—</div><div class="wcell-note">Goal: 60 min</div></div>
-          <div class="wcell"><div class="wcell-ico">🕐</div><div id="wv-stand" class="wcell-val">—</div><div class="wcell-note">Goal: 12 hours</div></div>
+          <div class="wcell"><div class="wcell-ico">👣</div><div id="wv-steps" class="wcell-val">—</div><div class="wcell-note">Steps (goal 8,000)</div></div>
+          <div class="wcell"><div class="wcell-ico">🔥</div><div id="wv-cal" class="wcell-val">—</div><div class="wcell-note">Active KCAL burned</div></div>
+          <div class="wcell"><div class="wcell-ico">🏋️</div><div id="wv-workout" class="wcell-val">—</div><div class="wcell-note">Workout (goal 60 min)</div></div>
+          <div class="wcell"><div class="wcell-ico">🕐</div><div id="wv-stand" class="wcell-val">—</div><div class="wcell-note">Stand hours (goal 12h)</div></div>
         </div>
         <div id="watch-form-view">
-          <div style="font-size:12px;color:var(--sub);margin-bottom:12px;line-height:1.7;">Open Health app on iPhone → tap Summary → enter today's numbers below.</div>
+          <div style="font-size:12px;color:var(--sub);margin-bottom:12px;line-height:1.7;">Open Health app → Summary → enter numbers for <strong id="watch-date-hint" style="color:var(--text);"></strong> below.</div>
           <div class="winp-grid">
-            <div><div class="winp-lbl">Steps</div><input class="inp" type="number" id="wi-s" placeholder="7500"/></div>
-            <div><div class="winp-lbl">Active Calories</div><input class="inp" type="number" id="wi-c" placeholder="480"/></div>
-            <div><div class="winp-lbl">Workout (min)</div><input class="inp" type="number" id="wi-w" placeholder="60"/></div>
-            <div><div class="winp-lbl">Stand Hours</div><input class="inp" type="number" id="wi-st" placeholder="10"/></div>
+            <div><div class="winp-lbl">Steps</div><input class="inp" type="number" id="wi-s" placeholder="e.g. 7500"/></div>
+            <div><div class="winp-lbl">Active KCAL</div><input class="inp" type="number" id="wi-c" placeholder="e.g. 480"/></div>
+            <div><div class="winp-lbl">Workout (min)</div><input class="inp" type="number" id="wi-w" placeholder="e.g. 60"/></div>
+            <div><div class="winp-lbl">Stand Hours</div><input class="inp" type="number" id="wi-st" placeholder="e.g. 10"/></div>
           </div>
           <button class="btn btn-accent" onclick="saveWatch()">Save Apple Watch Data</button>
         </div>
       </div>
 
-      <!-- Meals -->
+      <!-- Meals by type -->
       <div class="card">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-          <span class="lbl" style="margin-bottom:0;">TODAY'S MEALS</span>
+          <span class="lbl" style="margin-bottom:0;">MEALS</span>
           <button class="btn-sm btn-sm-accent" onclick="go('log')">+ Add Food</button>
         </div>
         <div id="meals-list"></div>
       </div>
     </div>
 
-    <!-- ── LOG ── -->
+    <!-- ══ LOG ══ -->
     <div id="pg-log" class="page">
       <div class="sec-h">Log Food</div>
-      <div class="sec-s">Search 200+ Indian dishes or describe your meal.</div>
+      <div class="sec-s">Logging for: <strong id="log-date-display" style="color:var(--accent);"></strong><br/>Use the date bar above to change date.</div>
 
-      <!-- Date for this entry -->
+      <!-- Meal type selector -->
       <div class="card" style="padding:14px 16px;">
-        <span class="lbl">DATE OF MEAL</span>
-        <div class="date-pick-row">
-          <input class="inp" type="date" id="log-date"/>
-          <button class="btn-sm btn-sm-accent" onclick="setToday('log-date')">Today</button>
+        <span class="lbl">MEAL TYPE</span>
+        <div class="meal-type-row">
+          <button class="mt-btn on-b" id="mt-breakfast" onclick="setMealType('breakfast')">🌅 Breakfast</button>
+          <button class="mt-btn" id="mt-lunch" onclick="setMealType('lunch')">☀️ Lunch</button>
+          <button class="mt-btn" id="mt-dinner" onclick="setMealType('dinner')">🌙 Dinner</button>
+          <button class="mt-btn" id="mt-snack" onclick="setMealType('snack')">🍎 Snack</button>
         </div>
       </div>
 
@@ -357,50 +359,67 @@ input[type=date].inp{color-scheme:light;}
       <div class="card">
         <span class="lbl">SEARCH FOOD DATABASE</span>
         <div id="food-search-wrap">
-          <input class="inp" type="text" id="food-search" placeholder="Type: dosa, chapati, rice, chicken…" oninput="searchFood(this.value)" autocomplete="off"/>
+          <input class="inp" type="text" id="food-search" placeholder="Type: dosa, chapati, chicken, egg…" oninput="searchFood(this.value)" autocomplete="off"/>
           <div id="food-results"></div>
         </div>
-        <div style="margin-top:10px;font-size:12px;color:var(--dim);">Not finding it? Describe it below for AI analysis.</div>
+        <div style="margin-top:10px;font-size:12px;color:var(--dim);">200+ Indian dishes in database. Not finding it? Use AI search below.</div>
       </div>
 
-      <!-- AI Fallback -->
+      <!-- Open Food Facts / Manual search -->
       <div class="card" id="ai-card">
-        <span class="lbl">DESCRIBE FOR AI ANALYSIS</span>
-        <textarea class="inp" id="meal-inp" placeholder="e.g. one dosa with bittergourd chana dal and a glass of buttermilk&#10;&#10;Note: Requires Anthropic API key in Settings."></textarea>
-        <button class="btn btn-accent" id="analyse-btn" onclick="analyse()" style="margin-top:12px;">✦ Analyse with AI</button>
+        <span class="lbl">AI FOOD ANALYSIS <span style="color:var(--accent);font-weight:500;text-transform:none;letter-spacing:0;">(Gemini — any Indian food)</span></span>
+        <div style="display:flex;gap:8px;margin-bottom:12px;">
+          <input class="inp" type="text" id="meal-inp" placeholder="e.g. one dosa with chana dal and buttermilk" style="flex:1;" onkeydown="if(event.key==='Enter')analyseFood()"/>
+          <button class="btn-sm btn-sm-accent" id="analyse-btn" onclick="analyseFood()" style="flex-shrink:0;padding:0 16px;">Search</button>
+        </div>
         <div id="analyse-err" style="display:none;" class="alert-r"></div>
+        <div id="off-results" style="display:none;"></div>
       </div>
 
-      <!-- Pending result -->
-      <div id="meal-result" style="display:none;" class="card-green">
-        <div style="font-size:10px;color:var(--accent-dk);letter-spacing:1.5px;text-transform:uppercase;font-weight:700;margin-bottom:10px;">✓ ANALYSIS READY</div>
-        <div id="r-name" style="font-size:17px;font-weight:800;margin-bottom:14px;color:var(--text);"></div>
-        <div class="serving-macros">
-          <div class="sm-cell"><div id="r-cal" class="sm-val" style="color:var(--accent);"></div><div class="sm-lbl">KCAL</div></div>
-          <div class="sm-cell"><div id="r-prot" class="sm-val" style="color:var(--orange);"></div><div class="sm-lbl">PROTEIN</div></div>
-          <div class="sm-cell"><div id="r-carb" class="sm-val" style="color:var(--blue);"></div><div class="sm-lbl">CARBS</div></div>
-          <div class="sm-cell"><div id="r-fat" class="sm-val" style="color:var(--purple);"></div><div class="sm-lbl">FAT</div></div>
+      <!-- Manual Entry -->
+      <div class="card" style="border:1.5px dashed var(--border2);">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;"><span style="font-size:18px;">✏️</span><span class="lbl" style="margin-bottom:0;">ADD MANUALLY</span></div>
+        <div style="font-size:12px;color:var(--sub);margin-bottom:12px;">Can't find it? Enter nutrition details yourself.</div>
+        <input class="inp" type="text" id="man-name" placeholder="Food name" style="margin-bottom:10px;"/>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">
+          <div><div class="winp-lbl">Calories (kcal) *</div><input class="inp" type="number" id="man-cal" placeholder="e.g. 250"/></div>
+          <div><div class="winp-lbl">Protein (g)</div><input class="inp" type="number" id="man-prot" placeholder="e.g. 12"/></div>
+          <div><div class="winp-lbl">Carbs (g)</div><input class="inp" type="number" id="man-carb" placeholder="e.g. 35"/></div>
+          <div><div class="winp-lbl">Fat (g)</div><input class="inp" type="number" id="man-fat" placeholder="e.g. 8"/></div>
         </div>
-        <div id="r-notes" style="display:none;font-size:12px;color:var(--sub);margin-bottom:14px;line-height:1.6;font-style:italic;"></div>
+        <button class="btn btn-outline" onclick="addManual()">+ Add to Log</button>
+        <div id="man-err" class="alert-r" style="display:none;margin-top:8px;"></div>
+      </div>
+
+      <!-- Result -->
+      <div id="meal-result" style="display:none;" class="card-green">
+        <div style="font-size:10px;color:var(--accent-dk);letter-spacing:1.5px;text-transform:uppercase;font-weight:700;margin-bottom:10px;">✓ NUTRITION FOUND</div>
+        <div id="r-name" style="font-size:17px;font-weight:800;margin-bottom:14px;"></div>
+        <div class="srv-macros" style="margin-bottom:14px;">
+          <div class="srv-cell"><div id="r-cal" class="srv-val" style="color:var(--accent);"></div><div class="srv-lbl">KCAL</div></div>
+          <div class="srv-cell"><div id="r-prot" class="srv-val" style="color:var(--orange);"></div><div class="srv-lbl">PROTEIN</div></div>
+          <div class="srv-cell"><div id="r-carb" class="srv-val" style="color:var(--blue);"></div><div class="srv-lbl">CARBS</div></div>
+          <div class="srv-cell"><div id="r-fat" class="srv-val" style="color:var(--purple);"></div><div class="srv-lbl">FAT</div></div>
+        </div>
+        <div id="r-source" style="font-size:11px;color:var(--dim);margin-bottom:12px;"></div>
         <div style="display:flex;gap:10px;">
-          <button class="btn btn-gray" style="flex:1;" onclick="retryMeal()">Retry</button>
+          <button class="btn btn-gray" style="flex:1;" onclick="retryMeal()">Try Again</button>
           <button class="btn btn-accent" style="flex:2;" onclick="addPending()">✓ Add to Log</button>
         </div>
       </div>
     </div>
 
-    <!-- ── PROGRESS ── -->
+    <!-- ══ PROGRESS ══ -->
     <div id="pg-progress" class="page">
       <div class="sec-h">Progress</div>
       <div class="card">
         <div class="prog-hdr">
           <div><div class="prog-lbl">LOST SO FAR</div><div id="pp-lost" class="prog-big" style="color:var(--accent);">0.0 kg</div></div>
-          <div style="text-align:right;"><div class="prog-lbl">TO GO</div><div id="pp-togo" class="prog-big" style="color:var(--text);">22.8 kg</div></div>
+          <div style="text-align:right;"><div class="prog-lbl">TO GO</div><div id="pp-togo" class="prog-big">22.8 kg</div></div>
         </div>
         <div class="prog-bg"><div id="pp-bar" class="prog-bar" style="width:0%;"></div></div>
         <div id="pp-cap" style="font-size:12px;color:var(--sub);text-align:center;font-weight:500;"></div>
       </div>
-
       <div class="card">
         <span class="lbl">THIS WEEK</span>
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px;">
@@ -410,7 +429,6 @@ input[type=date].inp{color-scheme:light;}
         </div>
         <div id="wk-msg" style="display:none;"></div>
       </div>
-
       <div class="card">
         <span class="lbl">BODY STATS</span>
         <div style="display:grid;grid-template-columns:1.4fr 1fr 1fr;padding:6px 0;border-bottom:1px solid var(--border);">
@@ -418,12 +436,7 @@ input[type=date].inp{color-scheme:light;}
         </div>
         <div id="stat-rows"></div>
       </div>
-
-      <div class="card">
-        <span class="lbl">WEIGHT TREND</span>
-        <div id="chart-wrap"></div>
-      </div>
-
+      <div class="card"><span class="lbl">WEIGHT TREND</span><div id="chart-wrap"></div></div>
       <div class="card">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
           <span class="lbl" style="margin-bottom:0;">DAILY CALORIE LOG</span>
@@ -433,26 +446,20 @@ input[type=date].inp{color-scheme:light;}
       </div>
     </div>
 
-    <!-- ── WEIGH-IN ── -->
+    <!-- ══ WEIGH-IN ══ -->
     <div id="pg-weigh" class="page">
       <div class="sec-h">Weekly Weigh-In</div>
-      <div class="sec-s">Log once a week — Sunday morning, after bathroom, before eating.</div>
+      <div class="sec-s">Logging for: <strong id="weigh-date-display" style="color:var(--accent);"></strong><br/>Use the date bar above to change date. Weigh Sunday mornings — after bathroom, before eating.</div>
 
       <div class="card">
-        <span class="lbl">DATE</span>
-        <div class="date-pick-row" style="margin-bottom:14px;">
-          <input class="inp" type="date" id="weigh-date"/>
-          <button class="btn-sm btn-sm-accent" onclick="setToday('weigh-date')">Today</button>
-        </div>
-
-        <span class="lbl">APPLE WATCH DATA (OPTIONAL)</span>
+        <span class="lbl">APPLE WATCH DATA FOR THIS DATE</span>
         <div class="winp-grid" style="margin-bottom:4px;">
           <div><div class="winp-lbl">Steps</div><input class="inp" type="number" id="bw-steps" placeholder="8000"/></div>
-          <div><div class="winp-lbl">Active Calories</div><input class="inp" type="number" id="bw-cal" placeholder="500"/></div>
+          <div><div class="winp-lbl">Active KCAL</div><input class="inp" type="number" id="bw-cal" placeholder="500"/></div>
           <div><div class="winp-lbl">Workout (min)</div><input class="inp" type="number" id="bw-workout" placeholder="60"/></div>
           <div><div class="winp-lbl">Stand Hours</div><input class="inp" type="number" id="bw-stand" placeholder="10"/></div>
         </div>
-        <div style="margin-bottom:14px;font-size:11px;color:var(--dim);">This saves Apple Watch data for the selected date.</div>
+        <div style="margin-bottom:16px;font-size:11px;color:var(--dim);">Saves Apple Watch KCAL & activity for the selected date.</div>
 
         <span class="lbl">WEIGHT (KG) *</span>
         <input class="inp inp-xl" type="number" step="0.1" id="weigh-kg" placeholder="e.g. 90.2" style="margin-bottom:14px;"/>
@@ -468,15 +475,16 @@ input[type=date].inp{color-scheme:light;}
       </div>
     </div>
 
-    <!-- ── SETTINGS ── -->
+    <!-- ══ SETTINGS ══ -->
     <div id="pg-settings" class="page">
       <div class="sec-h">Settings</div>
       <div class="card">
-        <span class="lbl">ANTHROPIC API KEY</span>
-        <div style="font-size:12px;color:var(--sub);margin-bottom:10px;line-height:1.7;">Used only for unlisted foods. Get free key at <strong style="color:var(--text);">console.anthropic.com</strong></div>
-        <input class="inp" type="password" id="new-key-inp" placeholder="sk-ant-api03-…" style="margin-bottom:10px;"/>
-        <button class="btn btn-accent" onclick="updateKey()">Update API Key</button>
-        <div id="key-saved-msg" class="alert-g" style="display:none;margin-top:8px;">✓ Key saved!</div>
+        <span class="lbl">GEMINI API KEY</span>
+        <div style="font-size:12px;color:var(--sub);margin-bottom:10px;line-height:1.8;">Powers AI meal analysis for any food not in the database.<br/>Get your free key at <strong style="color:var(--text);">aistudio.google.com</strong> → Get API Key.</div>
+        <input class="inp" type="password" id="new-gemini-key" placeholder="Paste new Gemini API key…" style="margin-bottom:10px;"/>
+        <button class="btn btn-accent" onclick="updateGeminiKey()">Save Key</button>
+        <div id="gemini-saved-msg" class="alert-g" style="display:none;">✓ Key saved!</div>
+        <div id="gemini-key-status" style="margin-top:10px;font-size:12px;color:var(--dim);"></div>
       </div>
       <div class="card">
         <span class="lbl">YOUR GOALS</span>
@@ -487,7 +495,7 @@ input[type=date].inp{color-scheme:light;}
         <button class="btn btn-outline" onclick="exportData()" style="margin-bottom:10px;">Download Backup (JSON)</button>
         <button class="btn btn-gray" onclick="clearAll()">⚠ Clear All Data</button>
       </div>
-      <div style="font-size:11px;color:var(--dim);text-align:center;line-height:1.8;padding:8px 10px 0;">Built for Pratik · Powered by Indian Food DB + Claude AI<br/>All data stored locally on this device.</div>
+      <div style="font-size:11px;color:var(--dim);text-align:center;line-height:1.8;padding:8px 10px 0;">Built for Pratik · Indian Food DB + CalorieNinjas<br/>All data stored locally on this device.</div>
     </div>
 
   </div>
@@ -495,21 +503,21 @@ input[type=date].inp{color-scheme:light;}
 
 <!-- ══════ SERVING MODAL ══════ -->
 <div id="serving-modal" onclick="closeModal(event)">
-  <div id="serving-box">
-    <div id="m-food-name" class="modal-title"></div>
-    <div id="m-food-per" class="modal-sub"></div>
-    <div class="serving-macros">
-      <div class="sm-cell"><div id="m-cal" class="sm-val" style="color:var(--accent);"></div><div class="sm-lbl">KCAL</div></div>
-      <div class="sm-cell"><div id="m-prot" class="sm-val" style="color:var(--orange);"></div><div class="sm-lbl">PROTEIN</div></div>
-      <div class="sm-cell"><div id="m-carb" class="sm-val" style="color:var(--blue);"></div><div class="sm-lbl">CARBS</div></div>
-      <div class="sm-cell"><div id="m-fat" class="sm-val" style="color:var(--purple);"></div><div class="sm-lbl">FAT</div></div>
+  <div id="srv-box">
+    <div id="srv-food-name" style="font-size:18px;font-weight:800;margin-bottom:4px;"></div>
+    <div id="srv-food-per" style="font-size:12px;color:var(--sub);margin-bottom:16px;"></div>
+    <div class="srv-macros">
+      <div class="srv-cell"><div id="srv-cal" class="srv-val" style="color:var(--accent);"></div><div class="srv-lbl">KCAL</div></div>
+      <div class="srv-cell"><div id="srv-prot" class="srv-val" style="color:var(--orange);"></div><div class="srv-lbl">PROTEIN</div></div>
+      <div class="srv-cell"><div id="srv-carb" class="srv-val" style="color:var(--blue);"></div><div class="srv-lbl">CARBS</div></div>
+      <div class="srv-cell"><div id="srv-fat" class="srv-val" style="color:var(--purple);"></div><div class="srv-lbl">FAT</div></div>
     </div>
-    <div style="margin-bottom:14px;">
+    <div style="margin-bottom:16px;">
       <div class="lbl">SERVINGS</div>
       <div style="display:flex;align-items:center;gap:12px;">
-        <button onclick="adj(-0.5)" style="background:var(--bg);border:1.5px solid var(--border);border-radius:10px;width:40px;height:40px;font-size:22px;cursor:pointer;">−</button>
-        <input class="inp" type="number" id="serving-qty" step="0.5" min="0.5" value="1" oninput="updateModal()" style="text-align:center;font-size:20px;font-weight:700;flex:1;"/>
-        <button onclick="adj(0.5)" style="background:var(--bg);border:1.5px solid var(--border);border-radius:10px;width:40px;height:40px;font-size:22px;cursor:pointer;">+</button>
+        <button onclick="adjServ(-0.5)" style="background:var(--bg);border:1.5px solid var(--border);border-radius:10px;width:42px;height:42px;font-size:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;">−</button>
+        <input class="inp" type="number" id="srv-qty" step="0.5" min="0.5" value="1" oninput="updateModal()" style="text-align:center;font-size:22px;font-weight:700;flex:1;"/>
+        <button onclick="adjServ(0.5)" style="background:var(--bg);border:1.5px solid var(--border);border-radius:10px;width:42px;height:42px;font-size:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;">+</button>
       </div>
     </div>
     <button class="btn btn-accent" onclick="confirmAdd()">Add to Log</button>
@@ -519,51 +527,44 @@ input[type=date].inp{color-scheme:light;}
 
 <script>
 'use strict';
-// ════════════════════════════════════════════════════════════
-// INDIAN FOOD DATABASE  (per serving as noted)
-// {name, cal, protein, carbs, fat, serving}
-// ════════════════════════════════════════════════════════════
+// ════════════════════════════════════════════════════
+// INDIAN FOOD DATABASE
+// ════════════════════════════════════════════════════
 const DB=[
-  // ── Breakfast ──────────────────────────────────────────────
-  {name:'Plain Dosa (1 large)',cal:168,protein:4,carbs:32,fat:3,serving:'1 dosa (~80g)'},
-  {name:'Masala Dosa (1)',cal:220,protein:5,carbs:38,fat:6,serving:'1 dosa with potato filling'},
+  {name:'Plain Dosa (1 large)',cal:168,protein:4,carbs:32,fat:3,serving:'1 dosa ~80g'},
+  {name:'Masala Dosa (1)',cal:220,protein:5,carbs:38,fat:6,serving:'1 with potato filling'},
   {name:'Rava Dosa (1)',cal:175,protein:4,carbs:28,fat:5,serving:'1 dosa'},
-  {name:'Idli (1 piece)',cal:39,protein:2,carbs:8,fat:0,serving:'1 idli (~50g)'},
+  {name:'Idli (1 piece)',cal:39,protein:2,carbs:8,fat:0,serving:'1 idli ~50g'},
   {name:'Idli 2 pieces with sambar',cal:160,protein:7,carbs:28,fat:2,serving:'2 idli + sambar'},
-  {name:'Upma (1 cup)',cal:175,protein:4,carbs:28,fat:5,serving:'1 cup cooked (~150g)'},
+  {name:'Idli 3 pieces',cal:117,protein:6,carbs:24,fat:0,serving:'3 idli'},
+  {name:'Upma (1 cup)',cal:175,protein:4,carbs:28,fat:5,serving:'1 cup cooked'},
   {name:'Poha (1 cup)',cal:180,protein:3,carbs:35,fat:4,serving:'1 cup cooked'},
   {name:'Medu Vada (1)',cal:97,protein:3,carbs:12,fat:4,serving:'1 vada'},
-  {name:'Wheat Chapati (1)',cal:71,protein:3,carbs:13,fat:1,serving:'1 chapati (~30g)'},
+  {name:'Wheat Chapati (1)',cal:71,protein:3,carbs:13,fat:1,serving:'1 chapati ~30g'},
   {name:'Wheat Chapati with sabzi (1)',cal:120,protein:4,carbs:18,fat:3,serving:'1 chapati + sabzi'},
   {name:'Wheat Chapati with sabzi (2)',cal:240,protein:8,carbs:36,fat:6,serving:'2 chapati + sabzi'},
   {name:'Paratha plain (1)',cal:126,protein:3,carbs:18,fat:5,serving:'1 paratha'},
   {name:'Aloo Paratha (1)',cal:200,protein:5,carbs:30,fat:7,serving:'1 stuffed paratha'},
   {name:'Puri (1)',cal:72,protein:2,carbs:10,fat:3,serving:'1 puri'},
-  {name:'Bread slice white (1)',cal:70,protein:2,carbs:13,fat:1,serving:'1 slice'},
   {name:'Oats porridge (1 cup)',cal:148,protein:5,carbs:27,fat:2,serving:'1 cup prepared'},
   {name:'Boiled egg (1)',cal:78,protein:6,carbs:1,fat:5,serving:'1 large egg'},
   {name:'Boiled eggs (2)',cal:156,protein:12,carbs:2,fat:10,serving:'2 large eggs'},
   {name:'Boiled eggs (3)',cal:234,protein:18,carbs:3,fat:15,serving:'3 large eggs'},
-  {name:'Egg bhurji (2 eggs)',cal:185,protein:13,carbs:3,fat:13,serving:'2 eggs scrambled with onion tomato'},
-  {name:'Omelette 2 eggs',cal:190,protein:13,carbs:2,fat:14,serving:'2 egg omelette with oil'},
-  {name:'Poached egg (1)',cal:72,protein:6,carbs:0,fat:5,serving:'1 egg'},
-  // ── Rice dishes ────────────────────────────────────────────
-  {name:'Cooked rice (1 cup)',cal:206,protein:4,carbs:45,fat:0,serving:'1 cup cooked (~185g)'},
-  {name:'Rice with dal (150g rice)',cal:310,protein:12,carbs:60,fat:2,serving:'150g rice + dal'},
+  {name:'Egg bhurji (2 eggs)',cal:185,protein:13,carbs:3,fat:13,serving:'2 eggs scrambled'},
+  {name:'Omelette 2 eggs',cal:190,protein:13,carbs:2,fat:14,serving:'2 egg omelette'},
+  {name:'Cooked rice (150g)',cal:195,protein:4,carbs:43,fat:0,serving:'150g cooked rice'},
+  {name:'Cooked rice (1 cup)',cal:206,protein:4,carbs:45,fat:0,serving:'1 cup ~185g'},
+  {name:'Rice with dal (150g)',cal:310,protein:12,carbs:60,fat:2,serving:'150g rice + dal'},
   {name:'Rice with sambar (150g)',cal:295,protein:11,carbs:57,fat:3,serving:'150g rice + sambar'},
   {name:'Rice with rasam (150g)',cal:260,protein:9,carbs:55,fat:2,serving:'150g rice + rasam'},
   {name:'Rice with chicken gravy (150g)',cal:380,protein:28,carbs:48,fat:8,serving:'150g rice + curry'},
-  {name:'Rice with mutton curry (150g)',cal:430,protein:30,carbs:48,fat:13,serving:'150g rice + mutton curry'},
+  {name:'Rice with mutton curry (150g)',cal:430,protein:30,carbs:48,fat:13,serving:'150g rice + mutton'},
   {name:'Rice with egg curry (150g)',cal:360,protein:20,carbs:50,fat:8,serving:'150g rice + egg curry'},
   {name:'Biryani chicken (1 plate)',cal:490,protein:32,carbs:58,fat:13,serving:'1 plate ~300g'},
   {name:'Biryani mutton (1 plate)',cal:540,protein:34,carbs:56,fat:18,serving:'1 plate ~300g'},
-  {name:'Veg biryani (1 plate)',cal:380,protein:8,carbs:68,fat:8,serving:'1 plate ~300g'},
   {name:'Curd rice (1 cup)',cal:195,protein:7,carbs:38,fat:3,serving:'1 cup'},
-  {name:'Lemon rice (1 cup)',cal:220,protein:5,carbs:42,fat:5,serving:'1 cup'},
-  {name:'Fried rice veg (1 cup)',cal:238,protein:5,carbs:42,fat:6,serving:'1 cup cooked'},
-  // ── Dal & Curries ──────────────────────────────────────────
   {name:'Dal tadka (1 cup)',cal:170,protein:11,carbs:24,fat:4,serving:'1 cup'},
-  {name:'Dal makhani (1 cup)',cal:220,protein:11,carbs:28,fat:7,serving:'1 cup with cream'},
+  {name:'Dal makhani (1 cup)',cal:220,protein:11,carbs:28,fat:7,serving:'1 cup'},
   {name:'Sambar (1 cup)',cal:85,protein:5,carbs:14,fat:2,serving:'1 cup'},
   {name:'Rasam (1 cup)',cal:45,protein:2,carbs:8,fat:1,serving:'1 cup'},
   {name:'Chana dal (1 cup)',cal:190,protein:13,carbs:30,fat:3,serving:'1 cup cooked'},
@@ -572,127 +573,111 @@ const DB=[
   {name:'Palak paneer (1 cup)',cal:265,protein:14,carbs:10,fat:18,serving:'1 cup ~200g'},
   {name:'Paneer butter masala (1 cup)',cal:330,protein:15,carbs:14,fat:25,serving:'1 cup'},
   {name:'Paneer sabzi (100g)',cal:165,protein:11,carbs:6,fat:11,serving:'100g paneer in sabzi'},
-  {name:'Aloo sabzi (1 cup)',cal:170,protein:3,carbs:30,fat:5,serving:'1 cup with oil'},
+  {name:'Aloo sabzi (1 cup)',cal:170,protein:3,carbs:30,fat:5,serving:'1 cup'},
   {name:'Mixed veg sabzi (1 cup)',cal:130,protein:4,carbs:18,fat:5,serving:'1 cup'},
   {name:'Bittergourd sabzi (1 cup)',cal:90,protein:3,carbs:12,fat:4,serving:'1 cup'},
   {name:'Bhindi sabzi (1 cup)',cal:100,protein:3,carbs:14,fat:4,serving:'1 cup okra'},
   {name:'Egg curry (2 eggs)',cal:240,protein:14,carbs:8,fat:16,serving:'2 eggs in curry'},
-  // ── Non-Veg ────────────────────────────────────────────────
   {name:'Chicken curry (150g)',cal:290,protein:32,carbs:5,fat:16,serving:'150g in gravy'},
   {name:'Tandoori chicken (150g)',cal:225,protein:38,carbs:3,fat:7,serving:'150g grilled'},
   {name:'Chicken kebab grilled (150g)',cal:240,protein:40,carbs:2,fat:8,serving:'150g'},
   {name:'Chicken kebab deep fried (150g)',cal:370,protein:32,carbs:15,fat:20,serving:'150g fried'},
   {name:'Chilly chicken (150g)',cal:330,protein:30,carbs:14,fat:16,serving:'150g with sauce'},
-  {name:'Chicken breast plain (100g)',cal:165,protein:31,carbs:0,fat:4,serving:'100g cooked'},
+  {name:'Chicken breast cooked (100g)',cal:165,protein:31,carbs:0,fat:4,serving:'100g cooked'},
   {name:'Mutton curry (200g)',cal:380,protein:36,carbs:4,fat:24,serving:'200g in gravy'},
   {name:'Mutton curry (100g)',cal:190,protein:18,carbs:2,fat:12,serving:'100g in gravy'},
   {name:'Fish curry (150g)',cal:200,protein:28,carbs:4,fat:8,serving:'150g in gravy'},
   {name:'Prawn curry (150g)',cal:195,protein:25,carbs:5,fat:8,serving:'150g'},
-  {name:'Egg omelette masala',cal:215,protein:14,carbs:5,fat:15,serving:'2 eggs with masala'},
-  // ── Snacks & Street Food ───────────────────────────────────
   {name:'Vada pav (1)',cal:290,protein:7,carbs:45,fat:9,serving:'1 piece'},
   {name:'Samosa (1)',cal:130,protein:3,carbs:17,fat:6,serving:'1 medium'},
   {name:'Pav bhaji (1 plate)',cal:380,protein:9,carbs:62,fat:11,serving:'2 pav + bhaji'},
   {name:'Bhel puri (1 plate)',cal:178,protein:5,carbs:33,fat:3,serving:'1 serving'},
-  {name:'Pani puri (6 pieces)',cal:200,protein:4,carbs:36,fat:5,serving:'6 puris'},
   {name:'Momos veg (8 pieces)',cal:240,protein:8,carbs:42,fat:5,serving:'8 pieces'},
   {name:'Momos chicken (8 pieces)',cal:290,protein:18,carbs:38,fat:8,serving:'8 pieces'},
   {name:'Pakoda (5 pieces)',cal:205,protein:5,carbs:24,fat:10,serving:'5 pieces'},
-  {name:'Masala papad (1)',cal:50,protein:2,carbs:7,fat:2,serving:'1 roasted papad'},
-  // ── Salads & Sides ─────────────────────────────────────────
   {name:'Cucumber carrot salad (1 bowl)',cal:35,protein:1,carbs:7,fat:0,serving:'1 bowl ~100g'},
-  {name:'Green salad (1 bowl)',cal:25,protein:1,carbs:5,fat:0,serving:'1 bowl'},
   {name:'Sprouts salad (1 bowl)',cal:80,protein:6,carbs:12,fat:1,serving:'1 bowl ~100g'},
   {name:'Raita (1 cup)',cal:80,protein:5,carbs:8,fat:3,serving:'1 cup'},
   {name:'Curd plain (150g)',cal:90,protein:6,carbs:7,fat:4,serving:'150g bowl'},
   {name:'Greek yogurt (150g)',cal:120,protein:14,carbs:8,fat:4,serving:'150g'},
   {name:'Buttermilk (200ml)',cal:30,protein:2,carbs:4,fat:0,serving:'200ml glass'},
-  {name:'Coconut chutney (2 tbsp)',cal:65,protein:1,carbs:3,fat:6,serving:'2 tablespoons'},
-  {name:'Tomato chutney (2 tbsp)',cal:30,protein:1,carbs:5,fat:1,serving:'2 tablespoons'},
-  // ── Nuts & Healthy Snacks ──────────────────────────────────
   {name:'Almonds soaked (5)',cal:35,protein:1,carbs:1,fat:3,serving:'5 almonds'},
   {name:'Almonds (10)',cal:70,protein:3,carbs:3,fat:6,serving:'10 almonds'},
   {name:'Walnuts (5 halves)',cal:65,protein:2,carbs:1,fat:6,serving:'5 halves'},
-  {name:'Mixed nuts (1 handful)',cal:175,protein:5,carbs:7,fat:15,serving:'30g'},
-  {name:'Peanuts roasted (1 handful)',cal:166,protein:7,carbs:6,fat:14,serving:'30g'},
-  {name:'Banana (1 medium)',cal:105,protein:1,carbs:27,fat:0,serving:'1 medium ~118g'},
-  {name:'Apple (1 medium)',cal:95,protein:0,carbs:25,fat:0,serving:'1 medium ~182g'},
-  {name:'Guava (1 medium)',cal:68,protein:3,carbs:14,fat:1,serving:'1 medium'},
-  {name:'Mango (1 cup sliced)',cal:107,protein:1,carbs:28,fat:0,serving:'165g'},
-  {name:'Papaya (1 cup)',cal:55,protein:1,carbs:14,fat:0,serving:'145g'},
-  // ── Drinks ────────────────────────────────────────────────
+  {name:'Banana (1 medium)',cal:105,protein:1,carbs:27,fat:0,serving:'1 medium'},
+  {name:'Apple (1 medium)',cal:95,protein:0,carbs:25,fat:0,serving:'1 medium'},
   {name:'Black coffee (1 cup)',cal:2,protein:0,carbs:0,fat:0,serving:'240ml no sugar'},
-  {name:'Black coffee with sugar (1 tsp)',cal:18,protein:0,carbs:4,fat:0,serving:'1 cup + 1 tsp sugar'},
-  {name:'Black coffee sugar-free sweetener',cal:5,protein:0,carbs:1,fat:0,serving:'1 cup'},
-  {name:'Tea with milk (1 cup)',cal:45,protein:2,carbs:6,fat:2,serving:'1 cup with milk'},
+  {name:'Black coffee with sugar-free sweetener',cal:5,protein:0,carbs:1,fat:0,serving:'1 cup'},
+  {name:'Tea with milk (1 cup)',cal:45,protein:2,carbs:6,fat:2,serving:'1 cup'},
   {name:'Chai masala full cream (1 cup)',cal:80,protein:3,carbs:10,fat:3,serving:'1 cup'},
   {name:'Milk full cream (200ml)',cal:122,protein:6,carbs:10,fat:6,serving:'200ml'},
-  {name:'Milk toned (200ml)',cal:100,protein:7,carbs:10,fat:3,serving:'200ml'},
-  {name:'Whey protein shake (1 scoop)',cal:120,protein:24,carbs:5,fat:2,serving:'1 scoop ~30g in water'},
-  {name:'Mango lassi (1 glass)',cal:220,protein:7,carbs:38,fat:5,serving:'300ml'},
-  {name:'Lassi sweet (1 glass)',cal:190,protein:8,carbs:30,fat:5,serving:'250ml'},
+  {name:'Whey protein shake (1 scoop)',cal:120,protein:24,carbs:5,fat:2,serving:'1 scoop 30g in water'},
+  {name:'Whey isolate (1 scoop)',cal:110,protein:26,carbs:1,fat:1,serving:'1 scoop 30g'},
   {name:'Coconut water (1 glass)',cal:45,protein:2,carbs:9,fat:0,serving:'240ml'},
   {name:'Soft drink cola (200ml)',cal:84,protein:0,carbs:21,fat:0,serving:'200ml'},
-  {name:'Lemon water no sugar',cal:5,protein:0,carbs:2,fat:0,serving:'1 glass'},
-  // ── Chinese & Indo-Chinese ─────────────────────────────────
   {name:'Hakka noodles veg (1 plate)',cal:380,protein:8,carbs:62,fat:10,serving:'1 plate ~250g'},
   {name:'Hakka noodles chicken (1 plate)',cal:440,protein:22,carbs:58,fat:13,serving:'1 plate'},
   {name:'Manchurian veg (1 plate)',cal:290,protein:6,carbs:40,fat:12,serving:'1 plate'},
-  {name:'Fried rice veg (1 plate)',cal:380,protein:8,carbs:66,fat:10,serving:'1 plate'},
-  {name:'Spring roll (2 pieces)',cal:170,protein:5,carbs:22,fat:7,serving:'2 pieces'},
-  // ── South Indian Specials ──────────────────────────────────
   {name:'Pongal (1 cup)',cal:215,protein:6,carbs:40,fat:5,serving:'1 cup'},
   {name:'Bisi bele bath (1 cup)',cal:220,protein:8,carbs:40,fat:5,serving:'1 cup'},
-  {name:'Uttapam (1 small)',cal:110,protein:3,carbs:20,fat:2,serving:'1 piece ~80g'},
+  {name:'Uttapam (1)',cal:110,protein:3,carbs:20,fat:2,serving:'1 piece ~80g'},
   {name:'Appam (1)',cal:117,protein:3,carbs:22,fat:2,serving:'1 appam'},
-  {name:'Pesarattu (1)',cal:130,protein:7,carbs:20,fat:2,serving:'1 piece'},
   {name:'Avial (1 cup)',cal:120,protein:3,carbs:14,fat:6,serving:'1 cup'},
-  {name:'Kootu (1 cup)',cal:130,protein:5,carbs:18,fat:5,serving:'1 cup'},
-  {name:'Tamarind rice (1 cup)',cal:230,protein:4,carbs:44,fat:5,serving:'1 cup'},
-  // ── Gym & Protein ──────────────────────────────────────────
-  {name:'Whey isolate (1 scoop)',cal:110,protein:26,carbs:1,fat:1,serving:'1 scoop 30g in water'},
   {name:'Paneer raw (100g)',cal:265,protein:18,carbs:4,fat:20,serving:'100g'},
-  {name:'Chicken breast boiled (100g)',cal:165,protein:31,carbs:0,fat:4,serving:'100g'},
-  {name:'Tuna canned in water (100g)',cal:116,protein:26,carbs:0,fat:1,serving:'100g drained'},
-  {name:'Sprouts mixed (1 cup)',cal:62,protein:4,carbs:11,fat:0,serving:'1 cup'},
-  {name:'Moong dal sprouts (1 cup)',cal:66,protein:4,carbs:12,fat:0,serving:'1 cup'},
-  {name:'Soya chunks dry (50g)',cal:170,protein:26,carbs:14,fat:1,serving:'50g dry weight'},
+  {name:'Soya chunks (50g dry)',cal:170,protein:26,carbs:14,fat:1,serving:'50g dry'},
+  {name:'Mixed nuts (30g)',cal:175,protein:5,carbs:7,fat:15,serving:'30g handful'},
+  {name:'Peanuts roasted (30g)',cal:166,protein:7,carbs:6,fat:14,serving:'30g'},
+  {name:'Guava (1 medium)',cal:68,protein:3,carbs:14,fat:1,serving:'1 medium'},
+  {name:'Mango (1 cup sliced)',cal:107,protein:1,carbs:28,fat:0,serving:'165g'},
+  {name:'Papaya (1 cup)',cal:55,protein:1,carbs:14,fat:0,serving:'145g'},
+  {name:'Lemon rice (1 cup)',cal:220,protein:4,carbs:42,fat:5,serving:'1 cup'},
+  {name:'Tamarind rice (1 cup)',cal:230,protein:4,carbs:44,fat:5,serving:'1 cup'},
+  {name:'Lassi sweet (1 glass)',cal:190,protein:8,carbs:30,fat:5,serving:'250ml'},
+  {name:'Mango lassi (1 glass)',cal:220,protein:7,carbs:38,fat:5,serving:'300ml'},
 ];
 
-// ════════════════════════════════════════════════════════════
+// ════════════════════════════════════════════════════
 // CONSTANTS & STATE
-// ════════════════════════════════════════════════════════════
-const G={startWeight:90.7,startBF:40.1,startDate:'2026-04-26',targetBF:20,targetWeight:67.9,weeklyLoss:0.75,dailyCal:1650,dailyProt:130,dailyCarb:150,dailyFat:55,tdee:2300};
+// ════════════════════════════════════════════════════
+const G={startWeight:90.7,startBF:40.1,targetBF:20,targetWeight:67.9,weeklyLoss:0.75,dailyCal:1650,dailyProt:130,dailyCarb:150,dailyFat:55,tdee:2300};
+const MEAL_TYPES={breakfast:{label:'Breakfast',ico:'🌅',col:'var(--b-color)',bg:'#EFF6FF',cls:'b'},lunch:{label:'Lunch',ico:'☀️',col:'var(--l-color)',bg:'var(--accent-bg)',cls:'l'},dinner:{label:'Dinner',ico:'🌙',col:'var(--d-color)',bg:'#F5F3FF',cls:'d'},snack:{label:'Snack',ico:'🍎',col:'var(--s-color)',bg:'var(--orange-bg)',cls:'s'}};
+
 const ls={get:k=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):null;}catch{return null;}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));}catch{}}};
 
-let apiKey=ls.get('ph_key')||'';
+let geminiKey=ls.get('ph_gemini_key')||'';
 let daily=ls.get('ph_daily')||{};
 let weighIns=ls.get('ph_weigh')||[{date:'2026-04-26',weight:90.7,bfPercent:40.1}];
-let viewDate=today();
-let selectedFood=null;
+let viewDate=td();
+let selFood=null;
 let pending=null;
-let ckStep=0;
+let activeMealType='breakfast';
 
-function today(){return new Date().toISOString().split('T')[0];}
+function td(){return new Date().toISOString().split('T')[0];}
 function $(id){return document.getElementById(id);}
 function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML;}
-function fmtDate(d){return new Date(d+'T12:00:00').toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short'});}
-function setToday(id){$(id).value=today();}
+function fmtDate(d){const dt=new Date(d+'T12:00:00');const days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];return days[dt.getDay()]+', '+dt.toLocaleDateString('en-IN',{day:'numeric',month:'short'});}
+function fmtDateFull(d){return new Date(d+'T12:00:00').toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});}
 
-// ════════════════════════════════════════════════════════════
+// ════════════════════════════════════════════════════
 // BOOT
-// ════════════════════════════════════════════════════════════
+// ════════════════════════════════════════════════════
 window.onload=()=>{
-  if(apiKey||ls.get('ph_setup_done')){boot();}
+  if(ls.get('ph_setup_done')){boot();}
   else{$('setup').classList.add('on');}
-  setToday('log-date');setToday('weigh-date');
   buildGoals();
+  // auto-suggest meal type by time
+  const h=new Date().getHours();
+  activeMealType=h<11?'breakfast':h<15?'lunch':h<19?'snack':'dinner';
 };
 
-function saveKey(){
-  const k=$('apiKeyInput').value.trim();
-  if(k&&!k.startsWith('sk-ant-')){$('apiErr').textContent='Key should start with sk-ant-…';return;}
-  if(k){apiKey=k;ls.set('ph_key',k);}
+function saveSetup(){
+  const k=$('geminiKeyInput')?$('geminiKeyInput').value.trim():'';
+  if(k){geminiKey=k;ls.set('ph_gemini_key',k);}
+  ls.set('ph_setup_done',true);
+  $('setup').classList.remove('on');$('setup').style.display='none';
+  boot();
+}
+function skipKey(){
   ls.set('ph_setup_done',true);
   $('setup').classList.remove('on');$('setup').style.display='none';
   boot();
@@ -700,25 +685,53 @@ function saveKey(){
 
 function boot(){
   $('app').classList.add('on');
-  updateHeader();setInterval(updateHeader,60000);
-  renderToday();renderWeighHist();
+  updateDateBar();
+  updateHeader();
+  setInterval(updateHeader,60000);
+  renderToday();
+  renderWeighHist();
 }
 
-// ════════════════════════════════════════════════════════════
-// TABS & HEADER
-// ════════════════════════════════════════════════════════════
-function go(tab){
-  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('on',['today','log','progress','weigh','settings'][i]===tab));
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
-  $('pg-'+tab).classList.add('on');
-  if(tab==='progress')renderProgress();
-  if(tab==='weigh')renderWeighHist();
-  if(tab==='log'){setToday('log-date');$('food-search').value='';$('food-results').style.display='none';}
+// ════════════════════════════════════════════════════
+// DATE BAR — shared across all tabs
+// ════════════════════════════════════════════════════
+function updateDateBar(){
+  const isToday=viewDate===td();
+  $('db-main').textContent=isToday?'Today — '+fmtDate(viewDate):fmtDate(viewDate);
+  $('db-sub').textContent=isToday?'Viewing today\'s log':'Tap arrows or centre to change date';
+  $('date-jump').value=viewDate;
+  // update log & weigh page labels
+  const lbl=isToday?'Today ('+viewDate+')':fmtDate(viewDate)+' ('+viewDate+')';
+  if($('log-date-display'))$('log-date-display').textContent=lbl;
+  if($('weigh-date-display'))$('weigh-date-display').textContent=lbl;
+  if($('watch-date-hint'))$('watch-date-hint').textContent=isToday?'today':fmtDate(viewDate);
+  renderToday();
 }
 
+function shiftDay(d){
+  const dt=new Date(viewDate+'T12:00:00');dt.setDate(dt.getDate()+d);
+  const nd=dt.toISOString().split('T')[0];
+  if(nd>td())return;
+  viewDate=nd;updateDateBar();
+}
+
+function toggleDatePicker(){
+  const jp=$('date-jump');
+  jp.style.display=jp.style.display==='none'?'block':'none';
+  if(jp.style.display==='block')jp.focus();
+}
+
+function jumpToDate(d){
+  if(!d||d>td())return;
+  viewDate=d;$('date-jump').style.display='none';
+  updateDateBar();
+}
+
+// ════════════════════════════════════════════════════
+// HEADER
+// ════════════════════════════════════════════════════
 function updateHeader(){
-  const now=new Date();
-  $('hdr-date').textContent=now.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  $('hdr-date-lbl').textContent=new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
   const latest=weighIns.length?weighIns[weighIns.length-1]:{weight:G.startWeight};
   const lost=Math.max(0,G.startWeight-latest.weight);
   const rem=Math.max(0,(G.startWeight-G.targetWeight)-lost);
@@ -728,29 +741,35 @@ function updateHeader(){
   $('hdr-proj').textContent=proj.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'2-digit'});
 }
 
-// ════════════════════════════════════════════════════════════
-// TODAY TAB
-// ════════════════════════════════════════════════════════════
-function shiftDay(d){
-  const dt=new Date(viewDate+'T12:00:00');dt.setDate(dt.getDate()+d);
-  const nd=dt.toISOString().split('T')[0];
-  if(nd>today())return;
-  viewDate=nd;renderToday();
+// ════════════════════════════════════════════════════
+// TABS
+// ════════════════════════════════════════════════════
+function go(tab){
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('on',['today','log','progress','weigh','settings'][i]===tab));
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  $('pg-'+tab).classList.add('on');
+  updateDateBar(); // always refresh date labels
+  if(tab==='progress')renderProgress();
+  if(tab==='weigh')renderWeighHist();
+  if(tab==='log'){
+    setMealTypeUI(activeMealType);
+    $('food-search').value='';
+    $('food-results').style.display='none';
+  }
 }
 
+// ════════════════════════════════════════════════════
+// TODAY
+// ════════════════════════════════════════════════════
 function dayLog(date){return daily[date]||{meals:[],appleHealth:null};}
 
 function renderToday(){
   const log=dayLog(viewDate);
-  const cal=log.meals.reduce((s,m)=>s+(m.calories||0),0);
-  const prot=log.meals.reduce((s,m)=>s+(m.protein||0),0);
-  const carb=log.meals.reduce((s,m)=>s+(m.carbs||0),0);
-  const fat=log.meals.reduce((s,m)=>s+(m.fat||0),0);
-  const isToday=viewDate===today();
-
-  // Date nav label
-  $('today-date-lbl').textContent=isToday?'Today':fmtDate(viewDate);
-  $('today-date-sub').textContent=viewDate;
+  const all=log.meals||[];
+  const cal=all.reduce((s,m)=>s+(m.calories||0),0);
+  const prot=all.reduce((s,m)=>s+(m.protein||0),0);
+  const carb=all.reduce((s,m)=>s+(m.carbs||0),0);
+  const fat=all.reduce((s,m)=>s+(m.fat||0),0);
 
   // Ring
   const CIRC=326.7,pct=Math.min(cal/G.dailyCal,1);
@@ -775,30 +794,48 @@ function renderToday(){
 
   // Watch
   renderWatch(log.appleHealth);
-  if(log.appleHealth?.caloriesBurned){$('burned-row').style.display='block';$('burned-row').textContent='🔥 '+log.appleHealth.caloriesBurned+' active calories burned';}
-  else $('burned-row').style.display='none';
+  const br=$('burned-row');
+  if(log.appleHealth?.caloriesBurned){br.style.display='block';br.textContent='🔥 '+log.appleHealth.caloriesBurned+' active KCAL burned';}
+  else br.style.display='none';
 
-  // Meals
+  // Meals grouped by type
   const el=$('meals-list');
-  if(!log.meals.length){el.innerHTML='<div class="empty"><div class="empty-ico">🍽️</div>No meals logged for this day.<br/>Tap <strong>Add Food</strong> to start.</div>';return;}
-  el.innerHTML=log.meals.map(m=>`
-    <div class="meal-item">
-      <div class="meal-dot"></div>
-      <div class="meal-info">
-        <div class="meal-name">${esc(m.name)}</div>
-        <div class="meal-meta">P ${m.protein}g · C ${m.carbs}g · F ${m.fat}g${m.serving?' · '+esc(m.serving):''}</div>
-      </div>
-      <div class="meal-cal-box">
-        <div class="meal-cal">${m.calories}</div>
-        <div class="meal-kcal-lbl">kcal</div>
-        <button class="meal-del" onclick="removeMeal('${viewDate}',${m.id})">×</button>
-      </div>
-    </div>`).join('');
+  if(!all.length){el.innerHTML='<div class="empty"><div class="empty-ico">🍽️</div>No meals logged for this day.<br/>Use the <strong>Log</strong> tab to add food.</div>';return;}
+
+  let html='';
+  ['breakfast','lunch','dinner','snack'].forEach(type=>{
+    const meals=all.filter(m=>(m.mealType||'snack')===type);
+    if(!meals.length)return;
+    const tc=meals.reduce((s,m)=>s+(m.calories||0),0);
+    const mt=MEAL_TYPES[type];
+    html+=`<div class="meal-group">
+      <div class="meal-group-hdr ${mt.cls}" style="background:${mt.bg}">
+        <span class="meal-group-ico">${mt.ico}</span>
+        <span class="meal-group-name" style="color:${mt.col}">${mt.label}</span>
+        <span class="meal-group-cal ${mt.cls}">${tc} kcal</span>
+      </div>`;
+    meals.forEach(m=>{
+      html+=`<div class="meal-item">
+        <div class="meal-dot" style="background:${mt.col}"></div>
+        <div class="meal-info">
+          <div class="meal-name">${esc(m.name)}</div>
+          <div class="meal-meta">P ${m.protein}g · C ${m.carbs}g · F ${m.fat}g${m.serving?' · '+esc(m.serving):''}</div>
+        </div>
+        <div class="meal-cal-box">
+          <div class="meal-cal">${m.calories}</div>
+          <div class="meal-kcal-lbl">kcal</div>
+          <button class="meal-del" onclick="removeMeal('${viewDate}',${m.id})">×</button>
+        </div>
+      </div>`;
+    });
+    html+='</div>';
+  });
+  el.innerHTML=html;
 }
 
 function setM(k,val,tgt,color){
   $('m-'+k).textContent=val+'g';
-  $('m-'+k).style.color=val>=tgt?'var(--accent)':val>tgt*0.6?color:'var(--red)';
+  $('m-'+k).style.color=val>=tgt?'var(--accent)':color;
   $('b-'+k).style.width=Math.min(val/tgt*100,100)+'%';
   $('b-'+k).style.background=val>=tgt?'var(--accent)':color;
 }
@@ -809,15 +846,15 @@ function removeMeal(date,id){
   ls.set('ph_daily',daily);renderToday();updateHeader();
 }
 
-// ════════════════════════════════════════════════════════════
-// WATCH
-// ════════════════════════════════════════════════════════════
+// ════════════════════════════════════════════════════
+// APPLE WATCH
+// ════════════════════════════════════════════════════
 function renderWatch(ah){
   const f=$('watch-form-view'),s=$('watch-saved-view'),e=$('watch-edit-btn');
   if(ah){
     f.style.display='none';s.style.display='grid';e.style.display='block';
     $('wv-steps').textContent=(ah.steps||0).toLocaleString();
-    $('wv-cal').textContent=ah.caloriesBurned||0;
+    $('wv-cal').textContent=(ah.caloriesBurned||0)+' KCAL';
     $('wv-workout').textContent=(ah.workoutMins||0)+' min';
     $('wv-stand').textContent=(ah.standHours||0)+'h';
   } else {f.style.display='block';s.style.display='none';e.style.display='none';}
@@ -834,37 +871,44 @@ function clearWatch(){
   renderWatch(null);
 }
 
-// ════════════════════════════════════════════════════════════
-// FOOD SEARCH
-// ════════════════════════════════════════════════════════════
+// ════════════════════════════════════════════════════
+// MEAL TYPE
+// ════════════════════════════════════════════════════
+function setMealType(t){activeMealType=t;setMealTypeUI(t);}
+function setMealTypeUI(t){
+  document.querySelectorAll('.mt-btn').forEach(b=>b.className='mt-btn');
+  const map={breakfast:'on-b',lunch:'on-l',dinner:'on-d',snack:'on-s'};
+  $('mt-'+t).className='mt-btn '+map[t];
+}
+
+// ════════════════════════════════════════════════════
+// FOOD SEARCH (DB)
+// ════════════════════════════════════════════════════
+let _hits=[];
 function searchFood(q){
   const res=$('food-results');
   if(!q||q.length<2){res.style.display='none';return;}
   const ql=q.toLowerCase();
-  const hits=DB.filter(f=>f.name.toLowerCase().includes(ql)).slice(0,12);
-  if(!hits.length){res.innerHTML='<div class="food-no-result">No match — try describing it below for AI analysis.</div>';res.style.display='block';return;}
-  res.innerHTML=hits.map((f,i)=>`
-    <div class="food-item" onclick="openModal(${i},'${ql}')">
+  _hits=DB.filter(f=>f.name.toLowerCase().includes(ql)||f.serving.toLowerCase().includes(ql)).slice(0,12);
+  if(!_hits.length){
+    res.innerHTML='<div class="food-no-res">Not in database — describe it in "AI Food Search" below.</div>';
+    res.style.display='block';return;
+  }
+  res.innerHTML=_hits.map((f,i)=>`
+    <div class="food-item" onclick="openModal(${i})">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-        <div style="flex:1;">
-          <div class="food-item-name">${esc(f.name)}</div>
-          <div class="food-item-meta">${esc(f.serving)} · P ${f.protein}g · C ${f.carbs}g · F ${f.fat}g</div>
-        </div>
-        <div class="food-item-cal">${f.calories} kcal</div>
+        <div style="flex:1;"><div class="food-name">${esc(f.name)}</div><div class="food-meta">${esc(f.serving)} · P ${f.protein}g · C ${f.carbs}g · F ${f.fat}g</div></div>
+        <div class="food-cal">${f.cal} kcal</div>
       </div>
     </div>`).join('');
-  // Store filtered results for modal reference
-  res._hits=hits;
   res.style.display='block';
 }
 
-function openModal(idx,q){
-  const hits=$('food-results')._hits||[];
-  const f=hits[idx];if(!f)return;
-  selectedFood={...f};
-  $('m-food-name').textContent=f.name;
-  $('m-food-per').textContent='Per serving: '+f.serving;
-  $('serving-qty').value=1;
+function openModal(idx){
+  selFood={..._hits[idx]};
+  $('srv-food-name').textContent=selFood.name;
+  $('srv-food-per').textContent='Per serving: '+selFood.serving;
+  $('srv-qty').value=1;
   updateModal();
   $('serving-modal').classList.add('on');
   $('food-results').style.display='none';
@@ -872,91 +916,143 @@ function openModal(idx,q){
 }
 
 function updateModal(){
-  const qty=parseFloat($('serving-qty').value)||1;
-  if(!selectedFood)return;
-  $('m-cal').textContent=Math.round(selectedFood.cal*qty);
-  $('m-prot').textContent=Math.round(selectedFood.protein*qty)+'g';
-  $('m-carb').textContent=Math.round(selectedFood.carbs*qty)+'g';
-  $('m-fat').textContent=Math.round(selectedFood.fat*qty)+'g';
+  const q=parseFloat($('srv-qty').value)||1;
+  if(!selFood)return;
+  $('srv-cal').textContent=Math.round(selFood.cal*q);
+  $('srv-prot').textContent=Math.round(selFood.protein*q)+'g';
+  $('srv-carb').textContent=Math.round(selFood.carbs*q)+'g';
+  $('srv-fat').textContent=Math.round(selFood.fat*q)+'g';
 }
 
-function adj(d){
-  const el=$('serving-qty');
+function adjServ(d){
+  const el=$('srv-qty');
   el.value=Math.max(0.5,(parseFloat(el.value)||1)+d).toFixed(1);
   updateModal();
 }
 
 function confirmAdd(){
-  const qty=parseFloat($('serving-qty').value)||1;
-  const date=$('log-date').value||today();
-  const meal={id:Date.now(),name:selectedFood.name+(qty!==1?' (×'+qty+')':''),calories:Math.round(selectedFood.cal*qty),protein:Math.round(selectedFood.protein*qty),carbs:Math.round(selectedFood.carbs*qty),fat:Math.round(selectedFood.fat*qty),serving:selectedFood.serving};
-  const log=dayLog(date);
-  daily[date]={...log,meals:[...log.meals,meal]};
-  ls.set('ph_daily',daily);
+  const q=parseFloat($('srv-qty').value)||1;
+  const meal={
+    id:Date.now(),mealType:activeMealType,
+    name:selFood.name+(q!==1?' (×'+q+')':''),
+    calories:Math.round(selFood.cal*q),
+    protein:Math.round(selFood.protein*q),
+    carbs:Math.round(selFood.carbs*q),
+    fat:Math.round(selFood.fat*q),
+    serving:selFood.serving
+  };
+  addMealToDate(meal);
   closeModal(null);
-  viewDate=date;renderToday();updateHeader();
-  go('today');
 }
 
 function closeModal(e){
   if(e&&e.target!==e.currentTarget)return;
-  $('serving-modal').classList.remove('on');
-  selectedFood=null;
+  $('serving-modal').classList.remove('on');selFood=null;
 }
 
-// ════════════════════════════════════════════════════════════
-// AI ANALYSIS (fallback for unlisted foods)
-// ════════════════════════════════════════════════════════════
-async function analyse(){
+// ════════════════════════════════════════════════════
+// GEMINI API — free food analysis (1,500 req/day, no billing)
+// ════════════════════════════════════════════════════
+async function analyseFood(){
   const inp=$('meal-inp').value.trim();
   if(!inp)return;
-  if(!apiKey){$('analyse-err').textContent='No API key saved. Add your Anthropic API key in Settings tab.';$('analyse-err').style.display='block';return;}
   const btn=$('analyse-btn'),err=$('analyse-err'),res=$('meal-result');
-  btn.innerHTML='<span class="spinner"></span>Analysing…';btn.disabled=true;
-  err.style.display='none';res.style.display='none';pending=null;
+  const offRes=$('off-results');
+  err.style.display='none';res.style.display='none';
+  if(offRes)offRes.style.display='none';
+  pending=null;
+
+  if(!geminiKey){
+    err.textContent='No Gemini key saved. Go to Settings to add your free key from aistudio.google.com';
+    err.style.display='block';return;
+  }
+
+  btn.innerHTML='<span class="spinner"></span>';btn.disabled=true;
+
   try{
-    const r=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
-      body:JSON.stringify({model:'claude-haiku-20240307',max_tokens:400,
-        system:`Indian food nutrition expert. Respond ONLY with valid JSON, no markdown:
-{"name":"meal name max 6 words","calories":integer,"protein":integer,"carbs":integer,"fat":integer,"notes":"one sentence"}
-Use authentic South Indian portion sizes.`,
-        messages:[{role:'user',content:'Nutrition for: '+inp}]})
-    });
-    if(!r.ok){const e2=await r.json();throw new Error(e2.error?.message||'API error '+r.status);}
+    const prompt=`You are a precise Indian food nutrition expert. Analyse the following meal and return ONLY a valid JSON object, no markdown, no explanation:
+{"name":"short meal name max 6 words","calories":integer,"protein":integer,"carbs":integer,"fat":integer,"notes":"one short sentence on fat loss impact"}
+
+Use authentic South Indian / Indian portion sizes. Be accurate.
+Meal: ${inp}`;
+
+    const r=await fetch(
+      'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key='+geminiKey,
+      {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({
+          contents:[{parts:[{text:prompt}]}],
+          generationConfig:{temperature:0.1,maxOutputTokens:256}
+        })
+      }
+    );
+    if(!r.ok){
+      const e2=await r.json();
+      throw new Error(e2.error?.message||'API error '+r.status);
+    }
     const data=await r.json();
-    const raw=(data.content?.find(b=>b.type==='text')?.text||'').replace(/```[\w]*\n?/g,'').replace(/```/g,'').trim();
-    pending=JSON.parse(raw);
+    const raw=data.candidates?.[0]?.content?.parts?.[0]?.text||'';
+    const clean=raw.replace(/```json|```/g,'').trim();
+    pending=JSON.parse(clean);
+
     $('r-name').textContent=pending.name;
     $('r-cal').textContent=pending.calories;
     $('r-prot').textContent=pending.protein+'g';
     $('r-carb').textContent=pending.carbs+'g';
     $('r-fat').textContent=pending.fat+'g';
-    if(pending.notes){$('r-notes').textContent='💡 '+pending.notes;$('r-notes').style.display='block';}else $('r-notes').style.display='none';
+    if($('r-source'))$('r-source').textContent='Analysed by Gemini AI';
     res.style.display='block';
   } catch(e){
-    err.textContent='Analysis failed: '+e.message+'. Try searching the food database above instead.';
+    err.textContent='Analysis failed: '+e.message+'. Check your Gemini key in Settings or use Manual Entry below.';
     err.style.display='block';
   }
-  btn.innerHTML='✦ Analyse with AI';btn.disabled=false;
+  btn.innerHTML='Search';btn.disabled=false;
+}
+
+function selectOFF(){}  // unused, kept for compatibility
+
+// Manual entry
+function addManual(){
+  const name=$('man-name').value.trim()||'Custom food';
+  const cal=parseInt($('man-cal').value);
+  const err=$('man-err');
+  if(!cal){err.textContent='Calories are required.';err.style.display='block';return;}
+  err.style.display='none';
+  const meal={
+    id:Date.now(),mealType:activeMealType,
+    name,
+    calories:cal,
+    protein:parseInt($('man-prot').value)||0,
+    carbs:parseInt($('man-carb').value)||0,
+    fat:parseInt($('man-fat').value)||0,
+    serving:'custom entry'
+  };
+  addMealToDate(meal);
+  ['man-name','man-cal','man-prot','man-carb','man-fat'].forEach(id=>$(id).value='');
 }
 
 function retryMeal(){$('meal-result').style.display='none';$('meal-inp').value='';pending=null;}
 
 function addPending(){
   if(!pending)return;
-  const date=$('log-date').value||today();
-  const log=dayLog(date);
-  daily[date]={...log,meals:[...log.meals,{...pending,id:Date.now()}]};
-  ls.set('ph_daily',daily);
+  const meal={...pending,id:Date.now(),mealType:activeMealType};
+  addMealToDate(meal);
   pending=null;$('meal-inp').value='';$('meal-result').style.display='none';
-  viewDate=date;go('today');renderToday();updateHeader();
+  go('today');
 }
 
-// ════════════════════════════════════════════════════════════
+function addMealToDate(meal){
+  const log=dayLog(viewDate);
+  daily[viewDate]={...log,meals:[...log.meals,meal]};
+  ls.set('ph_daily',daily);
+  renderToday();updateHeader();
+  go('today'); // go to today to show the added meal — viewDate is already set
+}
+
+// ════════════════════════════════════════════════════
 // PROGRESS
-// ════════════════════════════════════════════════════════════
+// ════════════════════════════════════════════════════
 function renderProgress(){
   const latest=weighIns.length?weighIns[weighIns.length-1]:{weight:G.startWeight,bfPercent:G.startBF};
   const lost=Math.max(0,G.startWeight-latest.weight);
@@ -967,9 +1063,8 @@ function renderProgress(){
   $('pp-lost').textContent=lost.toFixed(1)+' kg';
   $('pp-togo').textContent=Math.max(0,total-lost).toFixed(1)+' kg';
   $('pp-bar').style.width=pct+'%';
-  $('pp-cap').textContent=pct.toFixed(1)+'% of journey done — projected goal: '+proj.toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'});
+  $('pp-cap').textContent=pct.toFixed(1)+'% done — projected goal: '+proj.toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'});
 
-  // Weekly
   const w7=Array.from({length:7},(_,i)=>{const d=new Date();d.setDate(d.getDate()-i);return d.toISOString().split('T')[0];});
   const logged=w7.map(d=>dayLog(d)).filter(l=>l.meals.length);
   $('wk-days').textContent=logged.length+'/7';
@@ -978,12 +1073,11 @@ function renderProgress(){
     const ap=Math.round(logged.reduce((s,l)=>s+l.meals.reduce((a,m)=>a+(m.protein||0),0),0)/logged.length);
     $('wk-cal').textContent=ac;$('wk-prot').textContent=ap+'g';
     const msg=$('wk-msg');
-    if(ac>G.dailyCal+100){msg.className='alert-y';msg.textContent='⚠️ Averaging '+ac+' kcal this week — '+(ac-G.dailyCal)+' over target. Consider lighter dinners.';msg.style.display='block';}
-    else if(ac<G.dailyCal-200){msg.className='alert-y';msg.textContent='⚠️ Only '+ac+' kcal avg — too low. Add protein to avoid muscle loss.';msg.style.display='block';}
+    if(ac>G.dailyCal+100){msg.className='alert-y';msg.textContent='⚠️ Averaging '+ac+' kcal — '+(ac-G.dailyCal)+' over target.';msg.style.display='block';}
+    else if(ac<G.dailyCal-200){msg.className='alert-y';msg.textContent='⚠️ Only '+ac+' kcal avg — too low, may cause muscle loss.';msg.style.display='block';}
     else{msg.className='alert-g';msg.textContent='✅ Great week! Averaging '+ac+' kcal — right on target.';msg.style.display='block';}
   } else {$('wk-cal').textContent='—';$('wk-prot').textContent='—';$('wk-msg').style.display='none';}
 
-  // Stats
   $('stat-rows').innerHTML=[
     {l:'Weight',s:G.startWeight+' kg',n:latest.weight+' kg',g:latest.weight<G.startWeight},
     {l:'Body Fat',s:G.startBF+'%',n:latest.bfPercent?latest.bfPercent+'%':'—',g:latest.bfPercent&&latest.bfPercent<G.startBF},
@@ -993,27 +1087,25 @@ function renderProgress(){
 
   renderChart();
 
-  // Daily log
   const allDays=Object.keys(daily).filter(d=>daily[d].meals?.length).sort((a,b)=>b.localeCompare(a)).slice(0,14);
   $('cal-hist').innerHTML=allDays.length?allDays.map(d=>{
     const log=dayLog(d);
-    const cal=log.meals.reduce((s,m)=>s+(m.calories||0),0);
-    const prot=log.meals.reduce((s,m)=>s+(m.protein||0),0);
-    const over=cal>G.dailyCal;
-    const pct2=Math.min(cal/G.dailyCal*100,100);
-    return `<div class="day-log-row">
+    const c=log.meals.reduce((s,m)=>s+(m.calories||0),0);
+    const p=log.meals.reduce((s,m)=>s+(m.protein||0),0);
+    const over=c>G.dailyCal;
+    return `<div class="dlr">
       <div class="dlr-top">
-        <div><span style="font-size:13px;font-weight:600;">${fmtDate(d)}</span>${d===today()?'<span class="badge badge-g">TODAY</span>':''}</div>
-        <div style="text-align:right;"><span class="dlr-cal" style="color:${over?'var(--red)':'var(--text)'};">${cal}</span><span style="font-size:11px;color:var(--dim);"> kcal · P:${prot}g</span></div>
+        <div><span style="font-size:13px;font-weight:600;">${fmtDate(d)}</span>${d===td()?'<span class="badge badge-g">TODAY</span>':''}</div>
+        <div style="text-align:right;"><span style="font-size:16px;font-weight:700;color:${over?'var(--red)':'var(--text)'};">${c}</span><span style="font-size:10px;color:var(--dim);"> kcal · P:${p}g</span></div>
       </div>
-      <div class="dlr-bar-bg"><div class="dlr-bar" style="width:${pct2}%;background:${over?'var(--red)':'var(--accent)'};"></div></div>
+      <div class="dlr-bar-bg"><div class="dlr-bar" style="width:${Math.min(c/G.dailyCal*100,100)}%;background:${over?'var(--red)':'var(--accent)'};"></div></div>
     </div>`;
   }).join(''):'<div class="empty">No meals logged yet.</div>';
 }
 
 function renderChart(){
   const wrap=$('chart-wrap');
-  if(weighIns.length<2){wrap.innerHTML='<div class="empty"><div class="empty-ico">📈</div>Add more weekly weigh-ins to see your trend.</div>';return;}
+  if(weighIns.length<2){wrap.innerHTML='<div class="empty">Add more weekly weigh-ins to see trend.</div>';return;}
   const W=wrap.offsetWidth||300,H=160;
   const pad={t:10,r:10,b:28,l:42};
   const cw=W-pad.l-pad.r,ch=H-pad.t-pad.b;
@@ -1025,33 +1117,27 @@ function renderChart(){
   const yL=Array.from({length:3},(_,i)=>{const v=mn+((mx-mn)/2)*i;const y=pad.t+((mx-v)/(mx-mn))*ch;return `<text x="${pad.l-6}" y="${y.toFixed(1)}" text-anchor="end" fill="#9CA3AF" font-size="10" dominant-baseline="middle">${v.toFixed(1)}</text>`;}).join('');
   const xL=pts.filter((_,i)=>i===0||i===pts.length-1||pts.length<=6).map(p=>`<text x="${p.x.toFixed(1)}" y="${H-4}" text-anchor="middle" fill="#9CA3AF" font-size="10">${p.w.date.slice(5)}</text>`).join('');
   const dots=pts.map(p=>`<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="5" fill="var(--accent)" stroke="white" stroke-width="2"/>`).join('');
-  wrap.innerHTML=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" style="display:block;overflow:visible">
-    <defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00C48C" stop-opacity="0.15"/><stop offset="100%" stop-color="#00C48C" stop-opacity="0"/></linearGradient></defs>
-    <path d="${area}" fill="url(#ag)"/><path d="${path}" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-    ${yL}${xL}${dots}</svg>`;
+  wrap.innerHTML=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" style="display:block;overflow:visible"><defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00C48C" stop-opacity="0.15"/><stop offset="100%" stop-color="#00C48C" stop-opacity="0"/></linearGradient></defs><path d="${area}" fill="url(#ag)"/><path d="${path}" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>${yL}${xL}${dots}</svg>`;
 }
 
-// ════════════════════════════════════════════════════════════
+// ════════════════════════════════════════════════════
 // WEIGH-IN
-// ════════════════════════════════════════════════════════════
+// ════════════════════════════════════════════════════
 function saveWeighIn(){
   const kg=parseFloat($('weigh-kg').value);if(!kg)return;
-  const date=$('weigh-date').value||today();
+  const date=viewDate;
   const bf=$('weigh-bf').value;
   const steps=parseInt($('bw-steps').value)||0;
   const wCal=parseInt($('bw-cal').value)||0;
   const wMin=parseInt($('bw-workout').value)||0;
   const wSt=parseInt($('bw-stand').value)||0;
 
-  // Save weigh-in
   const entry={date,weight:kg,bfPercent:bf?parseFloat(bf):null};
   weighIns=[...weighIns.filter(w=>w.date!==date),entry].sort((a,b)=>a.date.localeCompare(b.date));
   ls.set('ph_weigh',weighIns);
 
-  // Save Apple Watch data for that date if provided
   if(steps||wCal||wMin||wSt){
-    const log=dayLog(date);
-    daily[date]={...log,appleHealth:{steps,caloriesBurned:wCal,workoutMins:wMin,standHours:wSt}};
+    daily[date]={...dayLog(date),appleHealth:{steps,caloriesBurned:wCal,workoutMins:wMin,standHours:wSt}};
     ls.set('ph_daily',daily);
   }
 
@@ -1067,31 +1153,38 @@ function renderWeighHist(){
   el.innerHTML=arr.map((w,i)=>{
     const prev=arr[i+1];
     const diff=prev?(w.weight-prev.weight).toFixed(1):null;
-    const diffEl=diff!==null?`<div class="wh-diff" style="color:${parseFloat(diff)<=0?'var(--accent)':'var(--red)'};">${parseFloat(diff)<=0?'▼':'▲'} ${Math.abs(parseFloat(diff))} kg</div>`:'';
-    return `<div class="wh-row"><div><div class="wh-date">${fmtDate(w.date)}</div>${w.bfPercent?`<div class="wh-bf">Body fat: ${w.bfPercent}%</div>`:''}</div><div style="text-align:right;"><div class="wh-kg">${w.weight} kg</div>${diffEl}</div></div>`;
+    const diffEl=diff!==null?`<div style="font-size:12px;font-weight:700;text-align:right;color:${parseFloat(diff)<=0?'var(--accent)':'var(--red)'};">${parseFloat(diff)<=0?'▼':'▲'} ${Math.abs(parseFloat(diff))} kg</div>`:'';
+    return `<div class="wh-row"><div><div style="font-size:14px;font-weight:600;">${fmtDate(w.date)}</div>${w.bfPercent?`<div style="font-size:11px;color:var(--dim);">Body fat: ${w.bfPercent}%</div>`:''}</div><div style="text-align:right;"><div style="font-size:24px;font-weight:800;">${w.weight} kg</div>${diffEl}</div></div>`;
   }).join('');
 }
 
-// ════════════════════════════════════════════════════════════
+// ════════════════════════════════════════════════════
 // SETTINGS
-// ════════════════════════════════════════════════════════════
+// ════════════════════════════════════════════════════
 function buildGoals(){
   $('goals-list').innerHTML=[['Start Weight','90.7 kg'],['Target Weight','67.9 kg'],['Target Body Fat','20%'],['Daily Calories','1,650 kcal'],['Daily Protein','130g'],['Weekly Loss','0.75 kg/week'],['TDEE (estimated)','2,300 kcal']].map(([k,v])=>`<div class="goal-row"><span style="color:var(--sub);font-weight:500;">${k}</span><span style="font-weight:700;color:var(--accent);">${v}</span></div>`).join('');
 }
-function updateKey(){
-  const k=$('new-key-inp').value.trim();
-  if(!k.startsWith('sk-ant-')){alert('Key should start with sk-ant-…');return;}
-  apiKey=k;ls.set('ph_key',k);$('new-key-inp').value='';
-  const m=$('key-saved-msg');m.style.display='block';setTimeout(()=>m.style.display='none',2500);
+function updateGeminiKey(){
+  const k=$('new-gemini-key').value.trim();
+  if(!k){alert('Please paste a Gemini API key.');return;}
+  geminiKey=k;ls.set('ph_gemini_key',k);$('new-gemini-key').value='';
+  const m=$('gemini-saved-msg');m.style.display='block';setTimeout(()=>m.style.display='none',2500);
+  updateKeyStatus();
+}
+function updateKeyStatus(){
+  const el=$('gemini-key-status');
+  if(!el)return;
+  if(geminiKey){el.textContent='Key saved: '+geminiKey.slice(0,14)+'••••••••••';el.style.color='var(--accent)';}
+  else el.textContent='No key saved — AI analysis disabled.';
 }
 function exportData(){
   const blob=new Blob([JSON.stringify({daily,weighIns,exportDate:new Date().toISOString()},null,2)],{type:'application/json'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='pratik-health-'+today()+'.json';a.click();
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='pratik-health-'+td()+'.json';a.click();
 }
 function clearAll(){if(confirm('Delete ALL data? This cannot be undone.')){localStorage.clear();location.reload();}}
 
 // Close search on outside click
-document.addEventListener('click',e=>{if(!$('food-search-wrap').contains(e.target))$('food-results').style.display='none';});
+document.addEventListener('click',e=>{const w=$('food-search-wrap');if(w&&!w.contains(e.target))$('food-results').style.display='none';});
 </script>
 </body>
 </html>
