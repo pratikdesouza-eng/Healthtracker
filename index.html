@@ -207,23 +207,24 @@ input[type=date].inp{color-scheme:light;}
 <div id="setup" class="on">
   <div class="setup-logo">🏋️</div>
   <div class="setup-title">Pratik Health Hub</div>
-  <div class="setup-sub">Your personal Indian food &amp; fitness tracker.<br/>Add your free Gemini API key to enable AI meal analysis for any food.</div>
+  <div class="setup-sub">Your personal Indian food &amp; fitness tracker.<br/>Add your free Grok API key to enable AI meal analysis for any unlisted food.</div>
 
   <div class="setup-card">
-    <span class="lbl">Gemini API Key <span style="color:var(--accent);font-weight:500;text-transform:none;letter-spacing:0;">(Free - no credit card)</span></span>
-    <input class="inp" type="password" id="geminiKeyInput" placeholder="Paste your Gemini API key here" autocomplete="off" style="margin-bottom:10px;"/>
+    <span class="lbl">Grok API Key <span style="color:var(--accent);font-weight:500;text-transform:none;letter-spacing:0;">($25 free credits/month)</span></span>
+    <input class="inp" type="password" id="grokKeyInput" placeholder="xai-..." autocomplete="off" style="margin-bottom:10px;"/>
     <div style="background:var(--accent-bg);border:1px solid #B3EDD8;border-radius:10px;padding:12px;margin-bottom:12px;font-size:12px;color:var(--accent-dk);line-height:1.9;">
-      <strong>How to get your free key (2 minutes):</strong><br/>
-      1. Go to <strong>aistudio.google.com</strong><br/>
-      2. Sign in with your Google account<br/>
-      3. Click <strong>Get API Key</strong> then Create API key<br/>
-      4. Copy and paste it above
+      <strong>How to get your free key (2 min):</strong><br/>
+      1. Go to <strong>console.x.ai</strong><br/>
+      2. Sign in with your X (Twitter) account<br/>
+      3. Click <strong>API Keys</strong> &rarr; Create API Key<br/>
+      4. Copy and paste the key above<br/><br/>
+      <strong>$25 free credits every month. No credit card needed.</strong>
     </div>
     <div id="apiErr" style="font-size:12px;color:var(--red);min-height:16px;margin-bottom:8px;"></div>
     <button class="btn btn-accent" onclick="saveSetup()">Save &amp; Get Started</button>
-    <button class="btn btn-gray" onclick="skipKey()" style="margin-top:10px;">Skip - use food database only</button>
+    <button class="btn btn-gray" onclick="skipKey()" style="margin-top:10px;">Skip &mdash; use food database only</button>
   </div>
-  <div class="setup-hint">Free tier: 1,500 requests/day. No billing needed.<br/>200+ Indian dishes work without any key.</div></div>
+  <div class="setup-hint">500+ Indian dishes work without any key.<br/>Grok AI used only for foods not in the database.</div></div>
 </div>
 
 <!-- ══════ APP ══════ -->
@@ -367,9 +368,9 @@ input[type=date].inp{color-scheme:light;}
 
       <!-- Open Food Facts / Manual search -->
       <div class="card" id="ai-card">
-        <span class="lbl">AI FOOD ANALYSIS <span style="color:var(--accent);font-weight:500;text-transform:none;letter-spacing:0;">(Gemini — any Indian food)</span></span>
+        <span class="lbl">AI FOOD SEARCH <span style="color:var(--accent);font-weight:500;text-transform:none;letter-spacing:0;">(Grok AI — any Indian food)</span></span>
         <div style="display:flex;gap:8px;margin-bottom:12px;">
-          <input class="inp" type="text" id="meal-inp" placeholder="e.g. one dosa with chana dal and buttermilk" style="flex:1;" onkeydown="if(event.key==='Enter')analyseFood()"/>
+          <input class="inp" type="text" id="meal-inp" placeholder="e.g. dosa, chapati, chicken tikka…" style="flex:1;" onkeydown="if(event.key==='Enter')analyseFood()"/>
           <button class="btn-sm btn-sm-accent" id="analyse-btn" onclick="analyseFood()" style="flex-shrink:0;padding:0 16px;">Search</button>
         </div>
         <div id="analyse-err" style="display:none;" class="alert-r"></div>
@@ -479,12 +480,16 @@ input[type=date].inp{color-scheme:light;}
     <div id="pg-settings" class="page">
       <div class="sec-h">Settings</div>
       <div class="card">
-        <span class="lbl">GEMINI API KEY</span>
-        <div style="font-size:12px;color:var(--sub);margin-bottom:10px;line-height:1.8;">Powers AI meal analysis for any food not in the database.<br/>Get your free key at <strong style="color:var(--text);">aistudio.google.com</strong> → Get API Key.</div>
-        <input class="inp" type="password" id="new-gemini-key" placeholder="Paste new Gemini API key…" style="margin-bottom:10px;"/>
-        <button class="btn btn-accent" onclick="updateGeminiKey()">Save Key</button>
-        <div id="gemini-saved-msg" class="alert-g" style="display:none;">✓ Key saved!</div>
-        <div id="gemini-key-status" style="margin-top:10px;font-size:12px;color:var(--dim);"></div>
+        <span class="lbl">GROK API KEY (xAI)</span>
+        <div style="font-size:12px;color:var(--sub);margin-bottom:10px;line-height:1.8;">
+          Powers AI analysis for foods not in the database.<br/>
+          Get your free key at <strong style="color:var(--text);">console.x.ai</strong> &rarr; API Keys.<br/>
+          $25 free credits/month, resets automatically.
+        </div>
+        <input class="inp" type="password" id="new-grok-key" placeholder="xai-..." style="margin-bottom:10px;"/>
+        <button class="btn btn-accent" onclick="updateGrokKey()">Save Key</button>
+        <div id="grok-saved-msg" class="alert-g" style="display:none;">✓ Key saved!</div>
+        <div id="grok-key-status" style="margin-top:10px;font-size:12px;color:var(--dim);"></div>
       </div>
       <div class="card">
         <span class="lbl">YOUR GOALS</span>
@@ -495,7 +500,7 @@ input[type=date].inp{color-scheme:light;}
         <button class="btn btn-outline" onclick="exportData()" style="margin-bottom:10px;">Download Backup (JSON)</button>
         <button class="btn btn-gray" onclick="clearAll()">⚠ Clear All Data</button>
       </div>
-      <div style="font-size:11px;color:var(--dim);text-align:center;line-height:1.8;padding:8px 10px 0;">Built for Pratik · Indian Food DB + CalorieNinjas<br/>All data stored locally on this device.</div>
+      <div style="font-size:11px;color:var(--dim);text-align:center;line-height:1.8;padding:8px 10px 0;">Built for Pratik · 500+ Indian Foods + Grok AI<br/>All data stored locally on this device.</div>
     </div>
 
   </div>
@@ -531,110 +536,234 @@ input[type=date].inp{color-scheme:light;}
 // INDIAN FOOD DATABASE
 // ════════════════════════════════════════════════════
 const DB=[
-  {name:'Plain Dosa (1 large)',cal:168,protein:4,carbs:32,fat:3,serving:'1 dosa ~80g'},
-  {name:'Masala Dosa (1)',cal:220,protein:5,carbs:38,fat:6,serving:'1 with potato filling'},
-  {name:'Rava Dosa (1)',cal:175,protein:4,carbs:28,fat:5,serving:'1 dosa'},
-  {name:'Idli (1 piece)',cal:39,protein:2,carbs:8,fat:0,serving:'1 idli ~50g'},
-  {name:'Idli 2 pieces with sambar',cal:160,protein:7,carbs:28,fat:2,serving:'2 idli + sambar'},
-  {name:'Idli 3 pieces',cal:117,protein:6,carbs:24,fat:0,serving:'3 idli'},
-  {name:'Upma (1 cup)',cal:175,protein:4,carbs:28,fat:5,serving:'1 cup cooked'},
-  {name:'Poha (1 cup)',cal:180,protein:3,carbs:35,fat:4,serving:'1 cup cooked'},
-  {name:'Medu Vada (1)',cal:97,protein:3,carbs:12,fat:4,serving:'1 vada'},
-  {name:'Wheat Chapati (1)',cal:71,protein:3,carbs:13,fat:1,serving:'1 chapati ~30g'},
-  {name:'Wheat Chapati with sabzi (1)',cal:120,protein:4,carbs:18,fat:3,serving:'1 chapati + sabzi'},
-  {name:'Wheat Chapati with sabzi (2)',cal:240,protein:8,carbs:36,fat:6,serving:'2 chapati + sabzi'},
-  {name:'Paratha plain (1)',cal:126,protein:3,carbs:18,fat:5,serving:'1 paratha'},
-  {name:'Aloo Paratha (1)',cal:200,protein:5,carbs:30,fat:7,serving:'1 stuffed paratha'},
-  {name:'Puri (1)',cal:72,protein:2,carbs:10,fat:3,serving:'1 puri'},
-  {name:'Oats porridge (1 cup)',cal:148,protein:5,carbs:27,fat:2,serving:'1 cup prepared'},
-  {name:'Boiled egg (1)',cal:78,protein:6,carbs:1,fat:5,serving:'1 large egg'},
-  {name:'Boiled eggs (2)',cal:156,protein:12,carbs:2,fat:10,serving:'2 large eggs'},
-  {name:'Boiled eggs (3)',cal:234,protein:18,carbs:3,fat:15,serving:'3 large eggs'},
-  {name:'Egg bhurji (2 eggs)',cal:185,protein:13,carbs:3,fat:13,serving:'2 eggs scrambled'},
-  {name:'Omelette 2 eggs',cal:190,protein:13,carbs:2,fat:14,serving:'2 egg omelette'},
-  {name:'Cooked rice (150g)',cal:195,protein:4,carbs:43,fat:0,serving:'150g cooked rice'},
-  {name:'Cooked rice (1 cup)',cal:206,protein:4,carbs:45,fat:0,serving:'1 cup ~185g'},
-  {name:'Rice with dal (150g)',cal:310,protein:12,carbs:60,fat:2,serving:'150g rice + dal'},
-  {name:'Rice with sambar (150g)',cal:295,protein:11,carbs:57,fat:3,serving:'150g rice + sambar'},
-  {name:'Rice with rasam (150g)',cal:260,protein:9,carbs:55,fat:2,serving:'150g rice + rasam'},
-  {name:'Rice with chicken gravy (150g)',cal:380,protein:28,carbs:48,fat:8,serving:'150g rice + curry'},
-  {name:'Rice with mutton curry (150g)',cal:430,protein:30,carbs:48,fat:13,serving:'150g rice + mutton'},
-  {name:'Rice with egg curry (150g)',cal:360,protein:20,carbs:50,fat:8,serving:'150g rice + egg curry'},
-  {name:'Biryani chicken (1 plate)',cal:490,protein:32,carbs:58,fat:13,serving:'1 plate ~300g'},
-  {name:'Biryani mutton (1 plate)',cal:540,protein:34,carbs:56,fat:18,serving:'1 plate ~300g'},
-  {name:'Curd rice (1 cup)',cal:195,protein:7,carbs:38,fat:3,serving:'1 cup'},
-  {name:'Dal tadka (1 cup)',cal:170,protein:11,carbs:24,fat:4,serving:'1 cup'},
-  {name:'Dal makhani (1 cup)',cal:220,protein:11,carbs:28,fat:7,serving:'1 cup'},
-  {name:'Sambar (1 cup)',cal:85,protein:5,carbs:14,fat:2,serving:'1 cup'},
-  {name:'Rasam (1 cup)',cal:45,protein:2,carbs:8,fat:1,serving:'1 cup'},
-  {name:'Chana dal (1 cup)',cal:190,protein:13,carbs:30,fat:3,serving:'1 cup cooked'},
-  {name:'Rajma curry (1 cup)',cal:215,protein:14,carbs:35,fat:3,serving:'1 cup'},
-  {name:'Chana masala (1 cup)',cal:210,protein:12,carbs:35,fat:4,serving:'1 cup'},
-  {name:'Palak paneer (1 cup)',cal:265,protein:14,carbs:10,fat:18,serving:'1 cup ~200g'},
-  {name:'Paneer butter masala (1 cup)',cal:330,protein:15,carbs:14,fat:25,serving:'1 cup'},
-  {name:'Paneer sabzi (100g)',cal:165,protein:11,carbs:6,fat:11,serving:'100g paneer in sabzi'},
-  {name:'Aloo sabzi (1 cup)',cal:170,protein:3,carbs:30,fat:5,serving:'1 cup'},
-  {name:'Mixed veg sabzi (1 cup)',cal:130,protein:4,carbs:18,fat:5,serving:'1 cup'},
-  {name:'Bittergourd sabzi (1 cup)',cal:90,protein:3,carbs:12,fat:4,serving:'1 cup'},
-  {name:'Bhindi sabzi (1 cup)',cal:100,protein:3,carbs:14,fat:4,serving:'1 cup okra'},
-  {name:'Egg curry (2 eggs)',cal:240,protein:14,carbs:8,fat:16,serving:'2 eggs in curry'},
-  {name:'Chicken curry (150g)',cal:290,protein:32,carbs:5,fat:16,serving:'150g in gravy'},
-  {name:'Tandoori chicken (150g)',cal:225,protein:38,carbs:3,fat:7,serving:'150g grilled'},
-  {name:'Chicken kebab grilled (150g)',cal:240,protein:40,carbs:2,fat:8,serving:'150g'},
-  {name:'Chicken kebab deep fried (150g)',cal:370,protein:32,carbs:15,fat:20,serving:'150g fried'},
-  {name:'Chilly chicken (150g)',cal:330,protein:30,carbs:14,fat:16,serving:'150g with sauce'},
-  {name:'Chicken breast cooked (100g)',cal:165,protein:31,carbs:0,fat:4,serving:'100g cooked'},
-  {name:'Mutton curry (200g)',cal:380,protein:36,carbs:4,fat:24,serving:'200g in gravy'},
-  {name:'Mutton curry (100g)',cal:190,protein:18,carbs:2,fat:12,serving:'100g in gravy'},
-  {name:'Fish curry (150g)',cal:200,protein:28,carbs:4,fat:8,serving:'150g in gravy'},
-  {name:'Prawn curry (150g)',cal:195,protein:25,carbs:5,fat:8,serving:'150g'},
-  {name:'Vada pav (1)',cal:290,protein:7,carbs:45,fat:9,serving:'1 piece'},
-  {name:'Samosa (1)',cal:130,protein:3,carbs:17,fat:6,serving:'1 medium'},
-  {name:'Pav bhaji (1 plate)',cal:380,protein:9,carbs:62,fat:11,serving:'2 pav + bhaji'},
-  {name:'Bhel puri (1 plate)',cal:178,protein:5,carbs:33,fat:3,serving:'1 serving'},
-  {name:'Momos veg (8 pieces)',cal:240,protein:8,carbs:42,fat:5,serving:'8 pieces'},
-  {name:'Momos chicken (8 pieces)',cal:290,protein:18,carbs:38,fat:8,serving:'8 pieces'},
-  {name:'Pakoda (5 pieces)',cal:205,protein:5,carbs:24,fat:10,serving:'5 pieces'},
-  {name:'Cucumber carrot salad (1 bowl)',cal:35,protein:1,carbs:7,fat:0,serving:'1 bowl ~100g'},
-  {name:'Sprouts salad (1 bowl)',cal:80,protein:6,carbs:12,fat:1,serving:'1 bowl ~100g'},
-  {name:'Raita (1 cup)',cal:80,protein:5,carbs:8,fat:3,serving:'1 cup'},
-  {name:'Curd plain (150g)',cal:90,protein:6,carbs:7,fat:4,serving:'150g bowl'},
-  {name:'Greek yogurt (150g)',cal:120,protein:14,carbs:8,fat:4,serving:'150g'},
-  {name:'Buttermilk (200ml)',cal:30,protein:2,carbs:4,fat:0,serving:'200ml glass'},
-  {name:'Almonds soaked (5)',cal:35,protein:1,carbs:1,fat:3,serving:'5 almonds'},
-  {name:'Almonds (10)',cal:70,protein:3,carbs:3,fat:6,serving:'10 almonds'},
-  {name:'Walnuts (5 halves)',cal:65,protein:2,carbs:1,fat:6,serving:'5 halves'},
-  {name:'Banana (1 medium)',cal:105,protein:1,carbs:27,fat:0,serving:'1 medium'},
-  {name:'Apple (1 medium)',cal:95,protein:0,carbs:25,fat:0,serving:'1 medium'},
-  {name:'Black coffee (1 cup)',cal:2,protein:0,carbs:0,fat:0,serving:'240ml no sugar'},
-  {name:'Black coffee with sugar-free sweetener',cal:5,protein:0,carbs:1,fat:0,serving:'1 cup'},
-  {name:'Tea with milk (1 cup)',cal:45,protein:2,carbs:6,fat:2,serving:'1 cup'},
-  {name:'Chai masala full cream (1 cup)',cal:80,protein:3,carbs:10,fat:3,serving:'1 cup'},
-  {name:'Milk full cream (200ml)',cal:122,protein:6,carbs:10,fat:6,serving:'200ml'},
-  {name:'Whey protein shake (1 scoop)',cal:120,protein:24,carbs:5,fat:2,serving:'1 scoop 30g in water'},
-  {name:'Whey isolate (1 scoop)',cal:110,protein:26,carbs:1,fat:1,serving:'1 scoop 30g'},
-  {name:'Coconut water (1 glass)',cal:45,protein:2,carbs:9,fat:0,serving:'240ml'},
-  {name:'Soft drink cola (200ml)',cal:84,protein:0,carbs:21,fat:0,serving:'200ml'},
-  {name:'Hakka noodles veg (1 plate)',cal:380,protein:8,carbs:62,fat:10,serving:'1 plate ~250g'},
-  {name:'Hakka noodles chicken (1 plate)',cal:440,protein:22,carbs:58,fat:13,serving:'1 plate'},
-  {name:'Manchurian veg (1 plate)',cal:290,protein:6,carbs:40,fat:12,serving:'1 plate'},
-  {name:'Pongal (1 cup)',cal:215,protein:6,carbs:40,fat:5,serving:'1 cup'},
-  {name:'Bisi bele bath (1 cup)',cal:220,protein:8,carbs:40,fat:5,serving:'1 cup'},
-  {name:'Uttapam (1)',cal:110,protein:3,carbs:20,fat:2,serving:'1 piece ~80g'},
-  {name:'Appam (1)',cal:117,protein:3,carbs:22,fat:2,serving:'1 appam'},
-  {name:'Avial (1 cup)',cal:120,protein:3,carbs:14,fat:6,serving:'1 cup'},
-  {name:'Paneer raw (100g)',cal:265,protein:18,carbs:4,fat:20,serving:'100g'},
-  {name:'Soya chunks (50g dry)',cal:170,protein:26,carbs:14,fat:1,serving:'50g dry'},
-  {name:'Mixed nuts (30g)',cal:175,protein:5,carbs:7,fat:15,serving:'30g handful'},
-  {name:'Peanuts roasted (30g)',cal:166,protein:7,carbs:6,fat:14,serving:'30g'},
-  {name:'Guava (1 medium)',cal:68,protein:3,carbs:14,fat:1,serving:'1 medium'},
-  {name:'Mango (1 cup sliced)',cal:107,protein:1,carbs:28,fat:0,serving:'165g'},
-  {name:'Papaya (1 cup)',cal:55,protein:1,carbs:14,fat:0,serving:'145g'},
-  {name:'Lemon rice (1 cup)',cal:220,protein:4,carbs:42,fat:5,serving:'1 cup'},
-  {name:'Tamarind rice (1 cup)',cal:230,protein:4,carbs:44,fat:5,serving:'1 cup'},
-  {name:'Lassi sweet (1 glass)',cal:190,protein:8,carbs:30,fat:5,serving:'250ml'},
-  {name:'Mango lassi (1 glass)',cal:220,protein:7,carbs:38,fat:5,serving:'300ml'},
-];
+// ── South Indian Breakfast ─────────────────────────────────────────────
+{name:'Plain Dosa',cal:168,protein:4,carbs:32,fat:3,serving:'1 large dosa ~80g'},
+{name:'Masala Dosa',cal:220,protein:5,carbs:38,fat:6,serving:'1 with potato filling'},
+{name:'Rava Dosa',cal:175,protein:4,carbs:28,fat:5,serving:'1 dosa'},
+{name:'Set Dosa 2 pieces',cal:210,protein:5,carbs:38,fat:4,serving:'2 small dosas'},
+{name:'Onion Dosa',cal:185,protein:4,carbs:34,fat:4,serving:'1 dosa with onion'},
+{name:'Egg Dosa',cal:230,protein:10,carbs:30,fat:8,serving:'1 dosa with 1 egg'},
+{name:'Ghee Dosa',cal:220,protein:4,carbs:32,fat:9,serving:'1 dosa with ghee'},
+{name:'Idli',cal:39,protein:2,carbs:8,fat:0,serving:'1 idli ~50g'},
+{name:'Idli 2 pieces',cal:78,protein:4,carbs:16,fat:0,serving:'2 idli'},
+{name:'Idli 3 pieces',cal:117,protein:6,carbs:24,fat:0,serving:'3 idli'},
+{name:'Idli 2 with sambar',cal:160,protein:7,carbs:28,fat:2,serving:'2 idli + sambar bowl'},
+{name:'Idli 3 with sambar',cal:200,protein:9,carbs:36,fat:2,serving:'3 idli + sambar'},
+{name:'Upma',cal:175,protein:4,carbs:28,fat:5,serving:'1 cup cooked ~150g'},
+{name:'Poha',cal:180,protein:3,carbs:35,fat:4,serving:'1 cup cooked'},
+{name:'Aloo Poha',cal:210,protein:4,carbs:40,fat:5,serving:'1 cup with potato'},
+{name:'Medu Vada',cal:97,protein:3,carbs:12,fat:4,serving:'1 vada'},
+{name:'Medu Vada 2 pieces',cal:194,protein:6,carbs:24,fat:8,serving:'2 vadas'},
+{name:'Uttapam plain',cal:110,protein:3,carbs:20,fat:2,serving:'1 piece ~80g'},
+{name:'Uttapam with vegetables',cal:135,protein:4,carbs:22,fat:3,serving:'1 with onion tomato'},
+{name:'Appam',cal:117,protein:3,carbs:22,fat:2,serving:'1 appam'},
+{name:'Pesarattu',cal:130,protein:7,carbs:20,fat:2,serving:'1 piece'},
+{name:'Pongal',cal:215,protein:6,carbs:40,fat:5,serving:'1 cup'},
+{name:'Ven Pongal',cal:215,protein:6,carbs:40,fat:5,serving:'1 cup with ghee'},
+{name:'Bisi Bele Bath',cal:220,protein:8,carbs:40,fat:5,serving:'1 cup'},
+{name:'Puliogare Tamarind Rice',cal:230,protein:4,carbs:44,fat:5,serving:'1 cup'},
+{name:'Lemon Rice',cal:220,protein:4,carbs:42,fat:5,serving:'1 cup'},
+{name:'Coconut Rice',cal:245,protein:4,carbs:44,fat:7,serving:'1 cup'},
+{name:'Curd Rice',cal:195,protein:7,carbs:38,fat:3,serving:'1 cup'},
+{name:'Tomato Rice',cal:210,protein:4,carbs:40,fat:5,serving:'1 cup'},
+{name:'Sambar Rice',cal:240,protein:9,carbs:46,fat:3,serving:'1 cup rice + sambar'},
+// ── Chapati & Roti ────────────────────────────────────────────────────
+{name:'Wheat Chapati',cal:71,protein:3,carbs:13,fat:1,serving:'1 chapati ~30g'},
+{name:'Chapati with sabzi 1',cal:120,protein:4,carbs:18,fat:3,serving:'1 chapati + vegetable'},
+{name:'Chapati with sabzi 2',cal:240,protein:8,carbs:36,fat:6,serving:'2 chapati + vegetable'},
+{name:'Chapati with sabzi 3',cal:360,protein:12,carbs:54,fat:9,serving:'3 chapati + vegetable'},
+{name:'Chapati with dal',cal:165,protein:8,carbs:28,fat:3,serving:'1 chapati + dal'},
+{name:'Chapati 2 with dal',cal:330,protein:16,carbs:56,fat:6,serving:'2 chapati + dal'},
+{name:'Chapati with paneer sabzi',cal:195,protein:11,carbs:20,fat:8,serving:'1 chapati + paneer sabzi'},
+{name:'Paratha plain',cal:126,protein:3,carbs:18,fat:5,serving:'1 paratha'},
+{name:'Aloo Paratha',cal:200,protein:5,carbs:30,fat:7,serving:'1 stuffed paratha'},
+{name:'Methi Paratha',cal:170,protein:5,carbs:25,fat:6,serving:'1 methi paratha'},
+{name:'Paneer Paratha',cal:240,protein:11,carbs:26,fat:11,serving:'1 stuffed paratha'},
+{name:'Puri',cal:72,protein:2,carbs:10,fat:3,serving:'1 puri'},
+{name:'Puri 2',cal:144,protein:4,carbs:20,fat:6,serving:'2 puris'},
+{name:'Bhatura',cal:180,protein:4,carbs:26,fat:7,serving:'1 bhatura'},
+{name:'Naan plain',cal:262,protein:9,carbs:45,fat:5,serving:'1 naan ~80g'},
+{name:'Butter Naan',cal:310,protein:9,carbs:46,fat:10,serving:'1 naan with butter'},
+{name:'Tandoori Roti',cal:114,protein:4,carbs:20,fat:2,serving:'1 roti'},
+// ── Rice ──────────────────────────────────────────────────────────────
+{name:'Cooked Rice 100g',cal:130,protein:3,carbs:28,fat:0,serving:'100g cooked'},
+{name:'Cooked Rice 150g',cal:195,protein:4,carbs:43,fat:0,serving:'150g cooked'},
+{name:'Cooked Rice 200g',cal:260,protein:5,carbs:57,fat:0,serving:'200g cooked'},
+{name:'Rice with Dal',cal:310,protein:12,carbs:60,fat:2,serving:'150g rice + dal bowl'},
+{name:'Rice with Sambar',cal:295,protein:11,carbs:57,fat:3,serving:'150g rice + sambar'},
+{name:'Rice with Rasam',cal:260,protein:9,carbs:55,fat:2,serving:'150g rice + rasam'},
+{name:'Rice with Chicken Gravy',cal:380,protein:28,carbs:48,fat:8,serving:'150g rice + curry'},
+{name:'Rice with Mutton Curry',cal:430,protein:30,carbs:48,fat:13,serving:'150g rice + mutton'},
+{name:'Rice with Egg Curry',cal:360,protein:20,carbs:50,fat:8,serving:'150g rice + egg curry'},
+{name:'Rice with Fish Curry',cal:340,protein:24,carbs:48,fat:7,serving:'150g rice + fish curry'},
+{name:'Egg Rice Egg Fried Rice',cal:295,protein:14,carbs:42,fat:8,serving:'1 plate ~200g'},
+{name:'Chicken Fried Rice',cal:380,protein:22,carbs:52,fat:10,serving:'1 plate ~250g'},
+{name:'Veg Fried Rice',cal:290,protein:7,carbs:52,fat:7,serving:'1 plate ~250g'},
+{name:'Chicken Biryani',cal:490,protein:32,carbs:58,fat:13,serving:'1 plate ~300g'},
+{name:'Mutton Biryani',cal:540,protein:34,carbs:56,fat:18,serving:'1 plate ~300g'},
+{name:'Egg Biryani',cal:380,protein:18,carbs:55,fat:10,serving:'1 plate ~280g'},
+{name:'Veg Biryani',cal:350,protein:7,carbs:62,fat:8,serving:'1 plate ~300g'},
+{name:'Prawn Biryani',cal:420,protein:28,carbs:56,fat:10,serving:'1 plate ~300g'},
+{name:'Jeera Rice',cal:220,protein:4,carbs:44,fat:4,serving:'1 cup'},
+{name:'Dal Khichdi',cal:220,protein:9,carbs:38,fat:4,serving:'1 cup'},
+{name:'Veg Pulao',cal:240,protein:6,carbs:44,fat:5,serving:'1 cup'},
+// ── Dal & Veg Curries ─────────────────────────────────────────────────
+{name:'Dal Tadka',cal:170,protein:11,carbs:24,fat:4,serving:'1 cup'},
+{name:'Dal Fry',cal:180,protein:11,carbs:26,fat:5,serving:'1 cup'},
+{name:'Dal Makhani',cal:220,protein:11,carbs:28,fat:7,serving:'1 cup with cream'},
+{name:'Chana Dal',cal:190,protein:13,carbs:30,fat:3,serving:'1 cup cooked'},
+{name:'Moong Dal',cal:147,protein:10,carbs:26,fat:1,serving:'1 cup cooked'},
+{name:'Toor Dal',cal:160,protein:10,carbs:28,fat:2,serving:'1 cup'},
+{name:'Rajma Curry',cal:215,protein:14,carbs:35,fat:3,serving:'1 cup'},
+{name:'Chana Masala',cal:210,protein:12,carbs:35,fat:4,serving:'1 cup'},
+{name:'Sambar',cal:85,protein:5,carbs:14,fat:2,serving:'1 cup'},
+{name:'Rasam',cal:45,protein:2,carbs:8,fat:1,serving:'1 cup'},
+{name:'Avial',cal:120,protein:3,carbs:14,fat:6,serving:'1 cup'},
+{name:'Kootu',cal:130,protein:5,carbs:18,fat:5,serving:'1 cup'},
+{name:'Aloo Sabzi',cal:170,protein:3,carbs:30,fat:5,serving:'1 cup with oil'},
+{name:'Aloo Gobi',cal:150,protein:4,carbs:22,fat:5,serving:'1 cup'},
+{name:'Bhindi Sabzi Okra',cal:100,protein:3,carbs:14,fat:4,serving:'1 cup'},
+{name:'Baingan Bharta',cal:120,protein:3,carbs:15,fat:6,serving:'1 cup'},
+{name:'Bittergourd Sabzi Karela',cal:90,protein:3,carbs:12,fat:4,serving:'1 cup'},
+{name:'Mixed Veg Sabzi',cal:130,protein:4,carbs:18,fat:5,serving:'1 cup'},
+{name:'Palak Paneer',cal:265,protein:14,carbs:10,fat:18,serving:'1 cup ~200g'},
+{name:'Paneer Butter Masala',cal:330,protein:15,carbs:14,fat:25,serving:'1 cup'},
+{name:'Matar Paneer',cal:280,protein:13,carbs:18,fat:18,serving:'1 cup'},
+{name:'Paneer Bhurji',cal:260,protein:16,carbs:6,fat:19,serving:'1 cup'},
+{name:'Paneer Sabzi',cal:165,protein:11,carbs:6,fat:11,serving:'100g paneer in sabzi'},
+{name:'Kadai Paneer',cal:295,protein:14,carbs:12,fat:22,serving:'1 cup'},
+{name:'Egg Curry',cal:240,protein:14,carbs:8,fat:16,serving:'2 eggs in curry'},
+{name:'Egg Masala',cal:220,protein:13,carbs:6,fat:15,serving:'2 eggs in masala'},
+// ── Non-Veg ───────────────────────────────────────────────────────────
+{name:'Butter Chicken',cal:310,protein:30,carbs:10,fat:18,serving:'1 cup ~200g'},
+{name:'Chicken Tikka Masala',cal:290,protein:28,carbs:12,fat:16,serving:'1 cup'},
+{name:'Chicken Curry',cal:290,protein:32,carbs:5,fat:16,serving:'150g in gravy'},
+{name:'Tandoori Chicken',cal:225,protein:38,carbs:3,fat:7,serving:'150g grilled'},
+{name:'Chicken Kebab Grilled',cal:240,protein:40,carbs:2,fat:8,serving:'150g grilled'},
+{name:'Chicken Kebab Deep Fried',cal:370,protein:32,carbs:15,fat:20,serving:'150g fried'},
+{name:'Chilly Chicken',cal:330,protein:30,carbs:14,fat:16,serving:'150g with sauce'},
+{name:'Chicken 65',cal:310,protein:28,carbs:12,fat:17,serving:'150g fried'},
+{name:'Chicken Breast Cooked',cal:165,protein:31,carbs:0,fat:4,serving:'100g cooked'},
+{name:'Mutton Curry 100g',cal:190,protein:18,carbs:2,fat:12,serving:'100g in gravy'},
+{name:'Mutton Curry 200g',cal:380,protein:36,carbs:4,fat:24,serving:'200g in gravy'},
+{name:'Mutton Keema',cal:290,protein:26,carbs:4,fat:18,serving:'100g cooked'},
+{name:'Fish Curry',cal:200,protein:28,carbs:4,fat:8,serving:'150g in gravy'},
+{name:'Fish Fry',cal:230,protein:28,carbs:8,fat:10,serving:'150g fried'},
+{name:'Prawn Curry',cal:195,protein:25,carbs:5,fat:8,serving:'150g'},
+{name:'Prawn Fry',cal:215,protein:24,carbs:8,fat:10,serving:'150g fried'},
+// ── Eggs ──────────────────────────────────────────────────────────────
+{name:'Boiled Egg',cal:78,protein:6,carbs:1,fat:5,serving:'1 large egg'},
+{name:'Boiled Eggs 2',cal:156,protein:12,carbs:2,fat:10,serving:'2 large eggs'},
+{name:'Boiled Eggs 3',cal:234,protein:18,carbs:3,fat:15,serving:'3 large eggs'},
+{name:'Boiled Eggs 4',cal:312,protein:24,carbs:4,fat:20,serving:'4 large eggs'},
+{name:'Egg Bhurji 2 eggs',cal:185,protein:13,carbs:3,fat:13,serving:'2 eggs scrambled masala'},
+{name:'Egg Bhurji 3 eggs',cal:260,protein:18,carbs:4,fat:19,serving:'3 eggs scrambled'},
+{name:'Omelette 2 eggs',cal:190,protein:13,carbs:2,fat:14,serving:'2 egg omelette'},
+{name:'Omelette 3 eggs',cal:270,protein:19,carbs:3,fat:20,serving:'3 egg omelette'},
+{name:'Masala Omelette 2 eggs',cal:210,protein:13,carbs:5,fat:15,serving:'2 eggs with onion tomato'},
+{name:'Egg Sandwich',cal:250,protein:14,carbs:28,fat:9,serving:'2 bread slices + 2 eggs'},
+// ── Snacks & Street Food ──────────────────────────────────────────────
+{name:'Vada Pav',cal:290,protein:7,carbs:45,fat:9,serving:'1 piece'},
+{name:'Vada Pav 2',cal:580,protein:14,carbs:90,fat:18,serving:'2 pieces'},
+{name:'Samosa',cal:130,protein:3,carbs:17,fat:6,serving:'1 medium'},
+{name:'Pav Bhaji',cal:380,protein:9,carbs:62,fat:11,serving:'2 pav + bhaji'},
+{name:'Bhel Puri',cal:178,protein:5,carbs:33,fat:3,serving:'1 plate'},
+{name:'Pani Puri 6 pieces',cal:200,protein:4,carbs:36,fat:5,serving:'6 puris'},
+{name:'Momos Veg 8 pieces',cal:240,protein:8,carbs:42,fat:5,serving:'8 pieces'},
+{name:'Momos Chicken 8 pieces',cal:290,protein:18,carbs:38,fat:8,serving:'8 pieces'},
+{name:'Momos Paneer 8 pieces',cal:280,protein:12,carbs:38,fat:10,serving:'8 pieces'},
+{name:'Pakoda 5 pieces',cal:205,protein:5,carbs:24,fat:10,serving:'5 pieces'},
+{name:'Onion Pakoda',cal:180,protein:4,carbs:22,fat:9,serving:'5 pieces'},
+{name:'Mirchi Bajji',cal:155,protein:3,carbs:20,fat:7,serving:'2 pieces'},
+{name:'Masala Papad',cal:50,protein:2,carbs:7,fat:2,serving:'1 roasted'},
+{name:'Bread Pakoda',cal:220,protein:6,carbs:30,fat:9,serving:'1 piece'},
+{name:'Dhokla 4 pieces',cal:155,protein:7,carbs:26,fat:3,serving:'4 pieces'},
+{name:'Murukku',cal:130,protein:2,carbs:18,fat:6,serving:'4-5 pieces ~30g'},
+{name:'Mixture Chivda',cal:150,protein:4,carbs:18,fat:7,serving:'1 handful ~30g'},
+// ── Indo-Chinese ──────────────────────────────────────────────────────
+{name:'Hakka Noodles Veg',cal:380,protein:8,carbs:62,fat:10,serving:'1 plate ~250g'},
+{name:'Hakka Noodles Chicken',cal:440,protein:22,carbs:58,fat:13,serving:'1 plate ~250g'},
+{name:'Hakka Noodles Egg',cal:410,protein:16,carbs:60,fat:11,serving:'1 plate'},
+{name:'Manchurian Veg',cal:290,protein:6,carbs:40,fat:12,serving:'1 plate'},
+{name:'Manchurian Chicken',cal:340,protein:22,carbs:36,fat:14,serving:'1 plate'},
+{name:'Chowmein Veg',cal:360,protein:7,carbs:60,fat:10,serving:'1 plate'},
+{name:'Chowmein Chicken',cal:420,protein:20,carbs:58,fat:12,serving:'1 plate'},
+{name:'Spring Roll 2 pieces',cal:170,protein:5,carbs:22,fat:7,serving:'2 pieces'},
+// ── Salads & Sides ────────────────────────────────────────────────────
+{name:'Cucumber Carrot Salad',cal:35,protein:1,carbs:7,fat:0,serving:'1 bowl ~100g'},
+{name:'Green Salad',cal:25,protein:1,carbs:5,fat:0,serving:'1 bowl'},
+{name:'Sprouts Salad',cal:80,protein:6,carbs:12,fat:1,serving:'1 bowl ~100g'},
+{name:'Mixed Sprouts',cal:62,protein:4,carbs:11,fat:0,serving:'1 cup'},
+{name:'Moong Dal Sprouts',cal:66,protein:4,carbs:12,fat:0,serving:'1 cup'},
+{name:'Raita',cal:80,protein:5,carbs:8,fat:3,serving:'1 cup'},
+{name:'Curd plain',cal:90,protein:6,carbs:7,fat:4,serving:'150g bowl'},
+{name:'Greek Yogurt',cal:120,protein:14,carbs:8,fat:4,serving:'150g'},
+{name:'Buttermilk',cal:30,protein:2,carbs:4,fat:0,serving:'200ml glass'},
+{name:'Coconut Chutney',cal:65,protein:1,carbs:3,fat:6,serving:'2 tablespoons'},
+{name:'Tomato Chutney',cal:30,protein:1,carbs:5,fat:1,serving:'2 tablespoons'},
+// ── Nuts & Healthy Snacks ─────────────────────────────────────────────
+{name:'Almonds Soaked 5',cal:35,protein:1,carbs:1,fat:3,serving:'5 almonds'},
+{name:'Almonds 10',cal:70,protein:3,carbs:3,fat:6,serving:'10 almonds'},
+{name:'Almonds 20',cal:140,protein:6,carbs:5,fat:12,serving:'20 almonds'},
+{name:'Walnuts 5 halves',cal:65,protein:2,carbs:1,fat:6,serving:'5 halves ~15g'},
+{name:'Cashews 10',cal:90,protein:3,carbs:5,fat:7,serving:'10 cashews ~15g'},
+{name:'Peanuts Roasted',cal:166,protein:7,carbs:6,fat:14,serving:'30g handful'},
+{name:'Mixed Nuts',cal:175,protein:5,carbs:7,fat:15,serving:'30g handful'},
+{name:'Pumpkin Seeds',cal:90,protein:5,carbs:3,fat:7,serving:'2 tbsp ~20g'},
+// ── Fruits ───────────────────────────────────────────────────────────
+{name:'Banana',cal:105,protein:1,carbs:27,fat:0,serving:'1 medium ~118g'},
+{name:'Apple',cal:95,protein:0,carbs:25,fat:0,serving:'1 medium ~182g'},
+{name:'Mango 1 cup',cal:107,protein:1,carbs:28,fat:0,serving:'165g sliced'},
+{name:'Papaya 1 cup',cal:55,protein:1,carbs:14,fat:0,serving:'145g'},
+{name:'Guava',cal:68,protein:3,carbs:14,fat:1,serving:'1 medium ~100g'},
+{name:'Orange',cal:62,protein:1,carbs:15,fat:0,serving:'1 medium ~130g'},
+{name:'Watermelon 1 cup',cal:46,protein:1,carbs:12,fat:0,serving:'152g cubed'},
+{name:'Pomegranate 1 cup',cal:83,protein:1,carbs:19,fat:1,serving:'seeds ~100g'},
+{name:'Dates 2',cal:67,protein:0,carbs:18,fat:0,serving:'2 medjool dates'},
+// ── Drinks ───────────────────────────────────────────────────────────
+{name:'Black Coffee no sugar',cal:2,protein:0,carbs:0,fat:0,serving:'240ml'},
+{name:'Black Coffee sugar-free sweetener',cal:5,protein:0,carbs:1,fat:0,serving:'1 cup'},
+{name:'Black Coffee 1 tsp sugar',cal:20,protein:0,carbs:5,fat:0,serving:'240ml'},
+{name:'Tea with milk',cal:45,protein:2,carbs:6,fat:2,serving:'1 cup'},
+{name:'Chai Masala',cal:80,protein:3,carbs:10,fat:3,serving:'1 cup full cream'},
+{name:'Green Tea',cal:2,protein:0,carbs:0,fat:0,serving:'1 cup'},
+{name:'Coconut Water',cal:45,protein:2,carbs:9,fat:0,serving:'240ml'},
+{name:'Soft Drink Cola 200ml',cal:84,protein:0,carbs:21,fat:0,serving:'200ml'},
+{name:'Lemon Water',cal:5,protein:0,carbs:2,fat:0,serving:'1 glass no sugar'},
+{name:'Milk Full Cream 200ml',cal:122,protein:6,carbs:10,fat:6,serving:'200ml'},
+{name:'Milk Toned 200ml',cal:100,protein:7,carbs:10,fat:3,serving:'200ml'},
+{name:'Whey Protein Shake',cal:120,protein:24,carbs:5,fat:2,serving:'1 scoop 30g in water'},
+{name:'Whey Isolate Shake',cal:110,protein:26,carbs:1,fat:1,serving:'1 scoop 30g'},
+{name:'Lassi Sweet',cal:190,protein:8,carbs:30,fat:5,serving:'250ml'},
+{name:'Lassi Salty',cal:100,protein:6,carbs:10,fat:4,serving:'250ml'},
+{name:'Mango Lassi',cal:220,protein:7,carbs:38,fat:5,serving:'300ml'},
+// ── Dairy ─────────────────────────────────────────────────────────────
+{name:'Paneer raw 100g',cal:265,protein:18,carbs:4,fat:20,serving:'100g'},
+{name:'Paneer raw 50g',cal:133,protein:9,carbs:2,fat:10,serving:'50g'},
+{name:'Cheese slice',cal:80,protein:5,carbs:1,fat:6,serving:'1 slice ~20g'},
+{name:'Bread White',cal:70,protein:2,carbs:13,fat:1,serving:'1 slice'},
+{name:'Bread Brown',cal:65,protein:3,carbs:12,fat:1,serving:'1 slice'},
+{name:'Oats cooked',cal:148,protein:5,carbs:27,fat:2,serving:'1 cup prepared'},
+// ── Protein & Gym ─────────────────────────────────────────────────────
+{name:'Soya Chunks 50g dry',cal:170,protein:26,carbs:14,fat:1,serving:'50g dry weight'},
+{name:'Soya Chunks 100g dry',cal:340,protein:52,carbs:28,fat:2,serving:'100g dry weight'},
+{name:'Tofu 100g',cal:76,protein:8,carbs:2,fat:4,serving:'100g firm tofu'},
+{name:'Rajma Boiled',cal:225,protein:15,carbs:40,fat:1,serving:'1 cup cooked'},
+{name:'Chickpea Boiled',cal:269,protein:15,carbs:45,fat:4,serving:'1 cup cooked'},
+{name:'Black Chana Boiled',cal:210,protein:12,carbs:35,fat:3,serving:'1 cup cooked'},
+// ── Sweets ────────────────────────────────────────────────────────────
+{name:'Gulab Jamun 2',cal:230,protein:4,carbs:38,fat:8,serving:'2 medium pieces'},
+{name:'Rasgulla 2',cal:160,protein:4,carbs:34,fat:1,serving:'2 pieces'},
+{name:'Kheer',cal:200,protein:6,carbs:32,fat:6,serving:'1 cup'},
+{name:'Halwa Sooji',cal:210,protein:4,carbs:32,fat:8,serving:'1 cup ~100g'},
+{name:'Payasam',cal:180,protein:5,carbs:30,fat:5,serving:'1 cup'},
+{name:'Ladoo',cal:150,protein:3,carbs:22,fat:6,serving:'1 medium besan ladoo'},
+{name:'Ice Cream',cal:137,protein:2,carbs:16,fat:7,serving:'1 scoop ~65g'},
+// ── Full Meals ────────────────────────────────────────────────────────
+{name:'South Indian Veg Meals Thali',cal:650,protein:18,carbs:110,fat:12,serving:'full thali rice+dal+2 curries+papad'},
+{name:'Hotel Breakfast Idli Vada',cal:360,protein:12,carbs:58,fat:10,serving:'3 idli + 2 vada + sambar'},
+{name:'Poori Masala',cal:450,protein:8,carbs:62,fat:18,serving:'3 poori + potato masala'},
+]];
 
 // ════════════════════════════════════════════════════
 // CONSTANTS & STATE
@@ -644,7 +773,7 @@ const MEAL_TYPES={breakfast:{label:'Breakfast',ico:'🌅',col:'var(--b-color)',b
 
 const ls={get:k=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):null;}catch{return null;}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));}catch{}}};
 
-let geminiKey=ls.get('ph_gemini_key')||'';
+let grokKey=ls.get('ph_grok_key')||'';
 let daily=ls.get('ph_daily')||{};
 let weighIns=ls.get('ph_weigh')||[{date:'2026-04-26',weight:90.7,bfPercent:40.1}];
 let viewDate=td();
@@ -671,8 +800,8 @@ window.onload=()=>{
 };
 
 function saveSetup(){
-  const k=$('geminiKeyInput')?$('geminiKeyInput').value.trim():'';
-  if(k){geminiKey=k;ls.set('ph_gemini_key',k);}
+  const k=$('grokKeyInput')?$('grokKeyInput').value.trim():'';
+  if(k){grokKey=k;ls.set('ph_grok_key',k);}
   ls.set('ph_setup_done',true);
   $('setup').classList.remove('on');$('setup').style.display='none';
   boot();
@@ -951,7 +1080,7 @@ function closeModal(e){
 }
 
 // ════════════════════════════════════════════════════
-// GEMINI API — free food analysis (1,500 req/day, no billing)
+// GROK API (xAI) — $25 free credits/month, browser-compatible
 // ════════════════════════════════════════════════════
 async function analyseFood(){
   const inp=$('meal-inp').value.trim();
@@ -962,55 +1091,45 @@ async function analyseFood(){
   if(offRes)offRes.style.display='none';
   pending=null;
 
-  if(!geminiKey){
-    err.textContent='No Gemini key saved. Go to Settings to add your free key from aistudio.google.com';
+  if(!grokKey){
+    err.textContent='No Grok key saved. Get a free key at console.x.ai and add it in Settings.';
     err.style.display='block';return;
   }
-
   btn.innerHTML='<span class="spinner"></span>';btn.disabled=true;
-
   try{
-    const prompt=`You are a precise Indian food nutrition expert. Analyse the following meal and return ONLY a valid JSON object, no markdown, no explanation:
-{"name":"short meal name max 6 words","calories":integer,"protein":integer,"carbs":integer,"fat":integer,"notes":"one short sentence on fat loss impact"}
-
-Use authentic South Indian / Indian portion sizes. Be accurate.
-Meal: ${inp}`;
-
-    const r=await fetch(
-      'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key='+geminiKey,
-      {
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({
-          contents:[{parts:[{text:prompt}]}],
-          generationConfig:{temperature:0.1,maxOutputTokens:256}
-        })
-      }
-    );
-    if(!r.ok){
-      const e2=await r.json();
-      throw new Error(e2.error?.message||'API error '+r.status);
-    }
+    const r=await fetch('https://api.x.ai/v1/chat/completions',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+grokKey},
+      body:JSON.stringify({
+        model:'grok-3-mini',
+        messages:[
+          {role:'system',content:'You are a precise Indian food nutrition expert. Always respond with ONLY a valid JSON object, no markdown, no extra text.'},
+          {role:'user',content:'Give me the nutrition for this meal. Use authentic South Indian/Indian portion sizes. Respond ONLY with JSON: {"name":"short name max 6 words","calories":integer,"protein":integer,"carbs":integer,"fat":integer,"notes":"one sentence on fat loss impact"}\n\nMeal: '+inp}
+        ],
+        temperature:0.1,
+        max_tokens:200
+      })
+    });
+    if(!r.ok){const e2=await r.json();throw new Error(e2.error?.message||'API error '+r.status);}
     const data=await r.json();
-    const raw=data.candidates?.[0]?.content?.parts?.[0]?.text||'';
-    const clean=raw.replace(/```json|```/g,'').trim();
-    pending=JSON.parse(clean);
-
+    const raw=(data.choices?.[0]?.message?.content||'').replace(/```json|```/g,'').trim();
+    pending=JSON.parse(raw);
+    pending.mealType=activeMealType;
     $('r-name').textContent=pending.name;
     $('r-cal').textContent=pending.calories;
     $('r-prot').textContent=pending.protein+'g';
     $('r-carb').textContent=pending.carbs+'g';
     $('r-fat').textContent=pending.fat+'g';
-    if($('r-source'))$('r-source').textContent='Analysed by Gemini AI';
+    if($('r-source'))$('r-source').textContent='Analysed by Grok AI (xAI)';
     res.style.display='block';
   } catch(e){
-    err.textContent='Analysis failed: '+e.message+'. Check your Gemini key in Settings or use Manual Entry below.';
+    err.textContent='Grok analysis failed: '+e.message+'. Use Manual Entry below instead.';
     err.style.display='block';
   }
   btn.innerHTML='Search';btn.disabled=false;
 }
 
-function selectOFF(){}  // unused, kept for compatibility
+function selectOFF(){}
 
 // Manual entry
 function addManual(){
@@ -1019,15 +1138,9 @@ function addManual(){
   const err=$('man-err');
   if(!cal){err.textContent='Calories are required.';err.style.display='block';return;}
   err.style.display='none';
-  const meal={
-    id:Date.now(),mealType:activeMealType,
-    name,
-    calories:cal,
-    protein:parseInt($('man-prot').value)||0,
-    carbs:parseInt($('man-carb').value)||0,
-    fat:parseInt($('man-fat').value)||0,
-    serving:'custom entry'
-  };
+  const meal={id:Date.now(),mealType:activeMealType,name,calories:cal,
+    protein:parseInt($('man-prot').value)||0,carbs:parseInt($('man-carb').value)||0,
+    fat:parseInt($('man-fat').value)||0,serving:'custom entry'};
   addMealToDate(meal);
   ['man-name','man-cal','man-prot','man-carb','man-fat'].forEach(id=>$(id).value='');
 }
@@ -1161,21 +1274,20 @@ function renderWeighHist(){
 // ════════════════════════════════════════════════════
 // SETTINGS
 // ════════════════════════════════════════════════════
-function buildGoals(){
-  $('goals-list').innerHTML=[['Start Weight','90.7 kg'],['Target Weight','67.9 kg'],['Target Body Fat','20%'],['Daily Calories','1,650 kcal'],['Daily Protein','130g'],['Weekly Loss','0.75 kg/week'],['TDEE (estimated)','2,300 kcal']].map(([k,v])=>`<div class="goal-row"><span style="color:var(--sub);font-weight:500;">${k}</span><span style="font-weight:700;color:var(--accent);">${v}</span></div>`).join('');
-}
-function updateGeminiKey(){
-  const k=$('new-gemini-key').value.trim();
-  if(!k){alert('Please paste a Gemini API key.');return;}
-  geminiKey=k;ls.set('ph_gemini_key',k);$('new-gemini-key').value='';
-  const m=$('gemini-saved-msg');m.style.display='block';setTimeout(()=>m.style.display='none',2500);
+function updateGrokKey(){
+  const k=$('new-grok-key').value.trim();
+  if(!k){alert('Please paste your Grok API key.');return;}
+  grokKey=k;ls.set('ph_grok_key',k);$('new-grok-key').value='';
+  const m=$('grok-saved-msg');m.style.display='block';setTimeout(()=>m.style.display='none',2500);
   updateKeyStatus();
 }
 function updateKeyStatus(){
-  const el=$('gemini-key-status');
-  if(!el)return;
-  if(geminiKey){el.textContent='Key saved: '+geminiKey.slice(0,14)+'••••••••••';el.style.color='var(--accent)';}
-  else el.textContent='No key saved — AI analysis disabled.';
+  const el=$('grok-key-status');if(!el)return;
+  if(grokKey){el.textContent='Key active: '+grokKey.slice(0,16)+'••••••••';el.style.color='var(--accent)';}
+  else{el.textContent='No key — AI analysis disabled.';el.style.color='var(--dim)';}
+}
+function buildGoals(){
+  $('goals-list').innerHTML=[['Start Weight','90.7 kg'],['Target Weight','67.9 kg'],['Target Body Fat','20%'],['Daily Calories','1,650 kcal'],['Daily Protein','130g'],['Weekly Loss','0.75 kg/week'],['TDEE (estimated)','2,300 kcal']].map(([k,v])=>`<div class="goal-row"><span style="color:var(--sub);font-weight:500;">${k}</span><span style="font-weight:700;color:var(--accent);">${v}</span></div>`).join('');
 }
 function exportData(){
   const blob=new Blob([JSON.stringify({daily,weighIns,exportDate:new Date().toISOString()},null,2)],{type:'application/json'});
